@@ -1,31 +1,44 @@
 import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:just_audio/just_audio.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import 'assets.dart';
+import 'colors.dart';
 
-_backgroundTaskEntrypoint() {
-  AudioServiceBackground.run(() => AudioPlayerTask());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark,
+      statusBarColor: Colors.white,
+    ),
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark, // navigation bar color
+        statusBarColor: Colors.white,
+      ),
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ok radio',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.light(),
       home: AudioServiceWidget(child: HomePage()),
-      builder: EasyLoading.init(),
     );
   }
 }
@@ -39,16 +52,21 @@ class _HomePageState extends State<HomePage> {
   pause() => AudioService.pause();
 
   play() async {
-    AudioService.start(backgroundTaskEntrypoint: _backgroundTaskEntrypoint);
-    if (AudioService.running) {
-      AudioService.play();
+    try {
+      await AudioService.start(
+        backgroundTaskEntrypoint: _backgroundTaskEntrypoint,
+      );
+      if (AudioService.running) {
+        AudioService.play();
+      }
+    } on PlatformException catch (e) {
+      Fluttertoast.showToast(msg: "$e");
     }
   }
 
   @override
   void dispose() {
-    AudioService?.disconnect();
-
+    AudioService?.stop();
     super.dispose();
   }
 
@@ -56,19 +74,19 @@ class _HomePageState extends State<HomePage> {
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(
-            title:  Text('Are you sure?'),
+            title: Text('Are you sure?'),
             content: Text('Do you want to exit an App'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('Жок'),
+                child: Text('Жок'),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(true);
                   AudioService.stop();
                 },
-                child:  Text('Ооба'),
+                child: Text('Ооба'),
               ),
             ],
           ),
@@ -81,56 +99,70 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white, // status bar color
-          brightness: Brightness.light, // status bar brightness
-        ),
         backgroundColor: Colors.white,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              StreamBuilder<PlaybackState>(
-                  stream: AudioService.playbackStateStream,
-                  builder: (context, snapshot) {
-                    var playing = snapshot.data?.playing ?? true;
-                    final processingState = snapshot.data?.processingState ??
-                        AudioProcessingState.stopped;
-                    return Column(
-                      children: [
-                        Text(
-                          playing ? "Playing" : "Stopped",
-                          style: TextStyle(fontSize: 45),
-                        ),
-                        CircleAvatar(
-                          backgroundColor: Colors.blue.withOpacity(0.3),
-                          radius: 45,
-                          child: SizedBox(
-                            height: 65,
-                            width: 65,
-                            child: FloatingActionButton(
-                              onPressed: () {
-                                if (playing) {
-                                  pause();
-                                } else {
-                                  play();
-                                }
-                              },
-                              child: Icon(
-                                  playing ? Icons.pause : Icons.play_arrow),
-                            ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              child: SvgPicture.asset(Assets.app_logo),
+            ),
+            StreamBuilder<AudioProcessingState>(
+                stream: AudioService.playbackStateStream
+                    .map((event) => event.processingState)
+                    .distinct(),
+                builder: (context, snapshot) {
+                  final processingState =
+                      snapshot.data ?? AudioProcessingState.none;
+                  if (processingState == AudioProcessingState.connecting) {
+                    Fluttertoast.showToast(
+                        msg: "Подключение к потоку...",
+                        backgroundColor: Colors.lightBlueAccent);
+                  }
+
+                  return Text(
+                      "processing state: ${describeEnum(processingState)}");
+                }),
+            StreamBuilder<PlaybackState>(
+                stream: AudioService.playbackStateStream,
+                builder: (context, snapshot) {
+                  var playing = snapshot.data?.playing ?? false;
+                  return Column(
+                    children: [
+                      Text(
+                        playing ? "Playing" : "Stoped",
+                        style: TextStyle(fontSize: 45),
+                      ), //
+                      CircleAvatar(
+                        backgroundColor: Colors.blue.withOpacity(0.3),
+                        radius: 45,
+                        child: SizedBox(
+                          height: 65,
+                          width: 65,
+                          child: FloatingActionButton(
+                            onPressed: () async {
+                              playing ? pause() : play();
+                            },
+                            backgroundColor: !playing
+                                ? AppColors.playButtonColor
+                                : AppColors.playButtonPressedColor,
+                            child:
+                                Icon(playing ? Icons.pause : Icons.play_arrow),
                           ),
                         ),
-                      ],
-                    );
-                  }),
-            ],
-          ),
+                      ),
+                    ],
+                  );
+                }),
+          ],
         ),
       ),
     );
   }
+}
+
+_backgroundTaskEntrypoint() {
+  AudioServiceBackground.run(() => AudioPlayerTask());
 }
 
 class AudioPlayerTask extends BackgroundAudioTask {
@@ -141,11 +173,11 @@ class AudioPlayerTask extends BackgroundAudioTask {
     title: "A Salute To Head-Scratching Science",
     artist: "Science Friday and WNYC Studios",
     artUri: Uri.parse(
-        "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg"),
+        "https://natureconservancy-h.assetsadobe.com/is/image/content/dam/tnc/nature/en/photos/Zugpsitze_mountain.jpg"),
   );
 
   @override
-  Future<void> onStart(Map<String, dynamic> params) async {
+  Future<void> onStart(Map<String, dynamic>? params) async {
     AudioServiceBackground.setMediaItem(items);
 
     // Listen to state changes on the player...
@@ -169,11 +201,15 @@ class AudioPlayerTask extends BackgroundAudioTask {
         ],
       );
     });
+
     // Play when ready.
     _audioPlayer.play();
+
     // Start loading something (will play when ready).
     await _audioPlayer.setUrl(items.id);
+
     print("on start id: ${_audioPlayer.androidAudioSessionId}");
+    return super.onStart(params);
   }
 
   @override
