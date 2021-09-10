@@ -10,12 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  just_audio: ^0.7.4+1
-  audio_service: ^0.17.0
+  just_audio: ^0.9.10
+  audio_service: ^0.17.1
   flutter_svg: ^0.22.0
-  flutter_bloc: ^7.0.0
-  shared_preferences: ^2.0.5
-  fluttertoast: ^8.0.6
+  flutter_bloc: ^7.2.0
+  shared_preferences: ^2.0.7
+  fluttertoast: ^8.0.8
   cupertino_icons: ^1.0.3
 
 dev_dependencies:
