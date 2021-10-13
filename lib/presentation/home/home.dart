@@ -1,18 +1,14 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:audio_service/audio_service.dart';
-import 'package:ok_radio_flutter/presentation/screens/splash/splash_screen.dart';
-import '../service/okradio_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ok_radio_flutter/main.dart';
+import 'package:ok_radio_flutter/presentation/home/bottom_bar.dart';
+import 'package:ok_radio_flutter/presentation/screens/splash/splash_screen.dart';
 
-import '../assets.dart';
-import '../colors.dart';
-
-backgroundTaskEntrypoint() {
-  AudioServiceBackground.run(() => OkRadioService());
-}
+import '../../assets.dart';
+import '../../colors.dart';
 
 class OkRadioHomePage extends StatefulWidget {
   @override
@@ -20,27 +16,6 @@ class OkRadioHomePage extends StatefulWidget {
 }
 
 class _OkRadioHomePageState extends State<OkRadioHomePage> {
-  pause() => AudioService.pause();
-
-  play() async {
-    try {
-      await AudioService.start(
-        backgroundTaskEntrypoint: backgroundTaskEntrypoint,
-      );
-      if (AudioService.running) {
-        AudioService.play();
-      }
-    } on PlatformException catch (e) {
-      Fluttertoast.showToast(msg: "$e");
-    }
-  }
-
-  @override
-  void dispose() {
-    AudioService?.stop();
-    super.dispose();
-  }
-
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,
@@ -55,7 +30,7 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(true);
-                  AudioService?.stop();
+                  audioHandler.stop();
                 },
                 child: Text('Ооба'),
               ),
@@ -71,6 +46,7 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
       onWillPop: _onWillPop,
       child: Scaffold(
         backgroundColor: Colors.white,
+        bottomNavigationBar: BottomNavBar(),
         body: Container(
           child: Stack(
             children: [
@@ -87,14 +63,13 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
                     ],
                   ),
                   StreamBuilder<AudioProcessingState>(
-                      stream: AudioService.playbackStateStream
+                      stream: audioHandler.playbackState
                           .map((event) => event.processingState)
                           .distinct(),
                       builder: (context, snapshot) {
                         final processingState =
-                            snapshot.data ?? AudioProcessingState.none;
-                        if (processingState ==
-                            AudioProcessingState.connecting) {
+                            snapshot.data ?? AudioProcessingState.idle;
+                        if (processingState == AudioProcessingState.loading) {
                           Fluttertoast.showToast(
                             msg: "Подключение к потоку...",
                             backgroundColor: Colors.lightBlueAccent,
@@ -103,10 +78,12 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
                         return Text(
                             "processing state: ${describeEnum(processingState)}");
                       }),
-                  StreamBuilder<PlaybackState>(
-                      stream: AudioService.playbackStateStream,
+                  StreamBuilder<bool>(
+                      stream: audioHandler.playbackState
+                          .map((event) => event.playing)
+                          .distinct(),
                       builder: (context, snapshot) {
-                        var playing = snapshot.data?.playing ?? false;
+                        var playing = snapshot.data ?? false;
                         return Column(
                           children: [
                             Text(
@@ -121,7 +98,9 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
                                 width: 65,
                                 child: FloatingActionButton(
                                   onPressed: () async {
-                                    playing ? pause() : play();
+                                    playing
+                                        ? audioHandler.pause()
+                                        : audioHandler.play();
                                   },
                                   backgroundColor: !playing
                                       ? AppColors.playButtonColor

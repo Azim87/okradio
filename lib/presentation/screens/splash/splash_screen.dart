@@ -1,8 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ok_radio_flutter/assets.dart';
-import 'package:ok_radio_flutter/presentation/home.dart';
+import 'package:ok_radio_flutter/presentation/home/home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(milliseconds: 800),
+        Duration(milliseconds: 1600),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => OkRadioHomePage())));
   }
@@ -33,10 +34,6 @@ class _SplashScreenState extends State<SplashScreen> {
 }
 
 class OkRadioBackgroundContainer extends StatelessWidget {
-  const OkRadioBackgroundContainer({
-    Key? key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(

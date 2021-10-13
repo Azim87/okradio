@@ -1,9 +1,10 @@
 import 'package:ok_radio_flutter/presentation/screens/splash/splash_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:audio_service/audio_service.dart';
 
 class OkRadioApp extends StatelessWidget {
+  OkRadioApp();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -16,7 +17,7 @@ class OkRadioApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Ok radio',
       theme: ThemeData.light(),
-      home: AudioServiceWidget(child: SplashScreen()),
+      home: SplashScreen(),
     );
   }
 }
