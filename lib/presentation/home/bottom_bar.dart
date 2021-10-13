@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class BottomBarItem {
   final IconData icon;
-
   const BottomBarItem({required this.icon});
 }
 
@@ -21,22 +20,33 @@ class _BottomNavBarState extends State<BottomNavBar> {
     Icons.access_alarm,
     Icons.check
   ];
+  int _currentIndex = 0;
 
   @override
   void initState() {
     bottomBarListItem = [];
     _iconData.forEach((icons) {
-      bottomBarListItem!.add(BottomNavigationBarItem(icon: Icon(icons), label: ""));
+      bottomBarListItem!.add(BottomNavigationBarItem(
+        icon: Icon(icons),
+        label: "",
+      ));
     });
     super.initState();
   }
 
+  onItemTap(int index) => setState(() => _currentIndex = index);
+
   @override
-  Widget build(BuildContext context) =>
-      BottomNavigationBar(
+  Widget build(BuildContext context) => BottomNavigationBar(
+        currentIndex: _currentIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.shifting,
         items: bottomBarListItem!,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.red,
+        onTap: onItemTap,
+        iconSize: 25,
+        elevation: 5,
       );
 }
