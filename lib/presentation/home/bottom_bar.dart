@@ -34,14 +34,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
     super.initState();
   }
 
-  onItemTap(int index) => setState(() => _currentIndex = index);
+  onItemTap(int? index) {
+    setState(() => _currentIndex = index!);
+    switch(index) {
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) => BottomNavigationBar(
         currentIndex: _currentIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         items: bottomBarListItem!,
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.red,
