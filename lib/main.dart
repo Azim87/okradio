@@ -1,6 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:ok_radio_flutter/core/di/inject.dart';
+
 import 'application/app.dart';
 import 'service/service.dart';
 
@@ -10,20 +13,17 @@ Future<void> main() async {
   audioHandler = await AudioService.init(
     builder: () => AudioPlayerHandler(),
     config: const AudioServiceConfig(
-        androidNotificationChannelId: "kg.ok.ok_radio_flutter",
+        androidNotificationChannelId: "kg.ok_radio_flutter",
         androidNotificationChannelName: "Ok Radio",
         androidNotificationOngoing: true,
         androidStopForegroundOnPause: true),
   );
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  await inject();
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
-      statusBarColor: Colors.white,
-    ),
-  );
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   runApp(OkRadioApp());
 }
