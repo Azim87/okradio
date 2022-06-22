@@ -1,13 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ok_radio_flutter/presentation/widgets/play_button.dart';
+
+import 'package:lottie/lottie.dart';
 
 import '../../assets.dart';
 import '../../colors.dart';
 import '../../core/navigation/navigation.dart';
 import '../../main.dart';
 
-class PlayRadioPage extends StatelessWidget {
+class PlayRadioPage extends StatefulWidget {
   const PlayRadioPage({Key? key}) : super(key: key);
+
+  @override
+  State<PlayRadioPage> createState() => _PlayRadioPageState();
+}
+
+class _PlayRadioPageState extends State<PlayRadioPage>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,52 +38,69 @@ class PlayRadioPage extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
-      child: Scaffold(
-        body: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(Assets.background),
-              fit: BoxFit.fill,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark,
+        child: Scaffold(
+          body: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(Assets.background),
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          child: Column(
-            children: [
-              SizedBox(
-                height: height.height * 0.04,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                    alignment: Alignment.topRight,
-                    child: SvgPicture.asset(Assets.settings)),
-              ),
-              SizedBox(
-                height: height.height * 0.05,
-              ),
-              Center(
-                child: SvgPicture.asset(Assets.app_logo),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Биринчи үй-бүлөк радио',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-              ),
-              Expanded(child: Container()),
-              StreamBuilder<bool>(
-                stream: audioHandler.playbackState
-                    .map((event) => event.playing)
-                    .distinct(),
-                builder: (context, snapshot) {
-                  var playing = snapshot.data ?? false;
+            child: Column(
+              children: [
+                SizedBox(
+                  height: height.height * 0.04,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: SvgPicture.asset(Assets.settings)),
+                ),
+                SizedBox(
+                  height: height.height * 0.05,
+                ),
+                Center(
+                  child: SvgPicture.asset(Assets.app_logo),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'Биринчи үй-бүлөк радио',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                ),
+                Expanded(child: Container()),
+                Lottie.asset(
+                  'assets/anim/music.json',
+                  controller: _controller,
+                  repeat: true,
+                  animate: true,
+                  onLoaded: (composition) {
+                    // Configure the AnimationController with the duration of the
+                    // Lottie file and start the animation.
+                    _controller
+                      ..duration = composition.duration
+                      ..forward();
+                  },
+                ),
+                SizedBox(
+                  height: height.height * 0.1,
+                ),
+                StreamBuilder<bool>(
+                  stream: audioHandler.playbackState
+                      .map((event) => event.playing)
+                      .distinct(),
+                  builder: (context, snapshot) {
+                    var playing = snapshot.data ?? false;
 
-                  return _buildPlayButton(playing);
-                },
-              ),
-              SizedBox(
-                height: height.height * 0.1,
-              ),
-            ],
+                    return _buildPlayButton(playing);
+                  },
+                ),
+                SizedBox(height: height.height * 0.1),
+              ],
+            ),
           ),
         ),
       ),
@@ -98,16 +138,15 @@ class PlayRadioPage extends StatelessWidget {
         child: SizedBox(
           height: 65,
           width: 65,
-          child: FloatingActionButton(
-            elevation: 0,
+          child: PlayButton(
             onPressed: () async {
               playing ? audioHandler.pause() : audioHandler.play();
+              playing ? _controller.stop() : _controller.repeat();
             },
-            backgroundColor: AppColors.playButtonBackgroundColor,
-            child: Icon(
-              playing ? Icons.pause : Icons.play_arrow_rounded,
-              size: 35,
-              color: AppColors.playButtonColor,
+            playIcon: Icon(
+              playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
+              size: 45,
+              color: AppColors.primary,
             ),
           ),
         ),

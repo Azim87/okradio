@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ok_radio_flutter/colors.dart';
 
+import '../../assets.dart';
 import '../play/play_page.dart';
 
 class OkRadioHomePage extends StatefulWidget {
@@ -10,7 +13,12 @@ class OkRadioHomePage extends StatefulWidget {
 
 class _OkRadioHomePageState extends State<OkRadioHomePage> {
   late final List<BottomNavigationBarItem>? bottomBarListItem;
-  late List _iconData = [PlayRadioPage(), PlayRadioPage()];
+  late List _iconData = [
+    PlayRadioPage(),
+    PlayRadioPage(),
+    // PlayRadioPage(),
+    // PlayRadioPage()
+  ];
   int _currentIndex = 0;
 
   @override
@@ -29,8 +37,31 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Screen A'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Screen B")
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              Assets.play,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              Assets.play,
+              color: Colors.amber,
+            ),
+            label: '',
+          ),
+          // BottomNavigationBarItem(
+          //   icon: Image.asset(
+          //     _currentIndex == 2 ? Assets.play : Assets.uPlay,
+          //   ),
+          //   label: '',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Image.asset(
+          //     _currentIndex == 3 ? Assets.browser : Assets.uBrowser,
+          //   ),
+          //   label: '',
+          // ),
         ],
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.red,
@@ -42,7 +73,7 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
     );
   }
 
-  onItemTap(int? index) {
-    setState(() => _currentIndex = index!);
+  onItemTap(int index) {
+    setState(() => _currentIndex = index);
   }
 }
