@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ok_radio_flutter/presentation/widgets/play_button.dart';
-
 import 'package:lottie/lottie.dart';
 
 import '../../assets.dart';
@@ -24,6 +22,7 @@ class _PlayRadioPageState extends State<PlayRadioPage>
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    _controller.stop();
   }
 
   @override
@@ -95,6 +94,8 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                   builder: (context, snapshot) {
                     var playing = snapshot.data ?? false;
 
+                    !playing ? _controller.stop() : _controller.repeat();
+
                     return _buildPlayButton(playing);
                   },
                 ),
@@ -133,21 +134,29 @@ class _PlayRadioPageState extends State<PlayRadioPage>
   }
 
   Widget _buildPlayButton(bool playing) => CircleAvatar(
-        backgroundColor: AppColors.playButtonBackgroundColor,
+        backgroundColor: AppColors.secondary,
         radius: 40,
         child: SizedBox(
           height: 65,
           width: 65,
-          child: PlayButton(
+          child: FloatingActionButton(
+            elevation: 0,
+            backgroundColor: AppColors.secondary,
             onPressed: () async {
               playing ? audioHandler.pause() : audioHandler.play();
               playing ? _controller.stop() : _controller.repeat();
             },
-            playIcon: Icon(
-              playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
-              size: 45,
-              color: AppColors.primary,
-            ),
+            child: playing
+                ? Icon(
+                    Icons.pause_rounded,
+                    color: AppColors.primary,
+                    size: 35,
+                  )
+                : Icon(
+                    Icons.play_arrow_rounded,
+                    color: AppColors.primary,
+                    size: 35,
+                  ),
           ),
         ),
       );

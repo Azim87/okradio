@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ok_radio_flutter/colors.dart';
 
 import '../../assets.dart';
 import '../play/play_page.dart';
