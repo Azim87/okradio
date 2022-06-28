@@ -15,8 +15,8 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
   late List _iconData = [
     PlayRadioPage(),
     PlayRadioPage(),
-    // PlayRadioPage(),
-    // PlayRadioPage()
+    PlayRadioPage(),
+    PlayRadioPage()
   ];
   int _currentIndex = 0;
 
@@ -38,32 +38,29 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
         items: [
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              Assets.play,
+              _currentIndex == 0 ? Assets.play : Assets.uPlay,
             ),
             label: '',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              Assets.play,
-              color: Colors.amber,
+              _currentIndex == 1 ? Assets.envelop : Assets.uEnvelop,
             ),
             label: '',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Image.asset(
-          //     _currentIndex == 2 ? Assets.play : Assets.uPlay,
-          //   ),
-          //   label: '',
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Image.asset(
-          //     _currentIndex == 3 ? Assets.browser : Assets.uBrowser,
-          //   ),
-          //   label: '',
-          // ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              _currentIndex == 2 ? Assets.browser : Assets.uBrowser,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              _currentIndex == 3 ? Assets.list : Assets.uList,
+            ),
+            label: '',
+          ),
         ],
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.red,
         onTap: onItemTap,
         iconSize: 25,
         elevation: 5,

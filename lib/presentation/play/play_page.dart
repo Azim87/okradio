@@ -21,7 +21,8 @@ class _PlayRadioPageState extends State<PlayRadioPage>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(hours: 1));
     _controller.stop();
   }
 
@@ -94,7 +95,7 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                   builder: (context, snapshot) {
                     var playing = snapshot.data ?? false;
 
-                    !playing ? _controller.stop() : _controller.repeat();
+                    !playing ? _controller.reset() : _controller.repeat();
 
                     return _buildPlayButton(playing);
                   },

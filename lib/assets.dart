@@ -4,16 +4,16 @@ class Assets {
   static const settings = "assets/icons/ic_settings.svg";
 
   static const play = 'assets/icons/ic_s_play.svg';
-  // static const uPlay = 'assets/icons/ic_uns_play.png';
+  static const uPlay = 'assets/icons/ic_uns_play.svg';
 
-  // static const envelop = "assets/icons/ic_selected_envelop.png";
-  // static const uEnvelop = "assets/icons/ic_uns_envelop.png";
+  static const envelop = "assets/icons/ic_s_env.svg";
+  static const uEnvelop = "assets/icons/ic_uns_env.svg";
 
-  // static const browser = "assets/icons/ic_selected_browser.png";
-  // static const uBrowser = "assets/icons/ic_uns_browser.png";
+  static const browser = "assets/icons/ic_s_brow.svg";
+  static const uBrowser = "assets/icons/ic_uns_brow.svg";
 
-  // static const list = "assets/icons/ic_selected_list.png";
-  // static const uList = "assets/icons/ic_uns_list.png";
+  static const list = "assets/icons/ic_s_list.svg";
+  static const uList = "assets/icons/ic_uns_list.svg";
 
   static const pause = 'assets/icons/ic_pause.png';
 }
