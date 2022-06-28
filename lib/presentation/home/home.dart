@@ -60,7 +60,7 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
           ],
           onTap: (index) {
             _pageViewController.animateToPage(index,
-                duration: Duration(milliseconds: 200), curve: Curves.bounceOut);
+                duration: Duration(milliseconds: 400), curve: Curves.easeIn);
           },
           iconSize: 25,
           elevation: 5,
