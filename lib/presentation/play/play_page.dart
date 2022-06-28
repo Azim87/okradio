@@ -51,18 +51,14 @@ class _PlayRadioPageState extends State<PlayRadioPage>
             ),
             child: Column(
               children: [
-                SizedBox(
-                  height: height.height * 0.04,
-                ),
+                SizedBox(height: height.height * 0.04),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Align(
                       alignment: Alignment.topRight,
                       child: SvgPicture.asset(Assets.settings)),
                 ),
-                SizedBox(
-                  height: height.height * 0.05,
-                ),
+                SizedBox(height: height.height * 0.05),
                 Center(
                   child: SvgPicture.asset(Assets.app_logo),
                 ),
@@ -147,17 +143,9 @@ class _PlayRadioPageState extends State<PlayRadioPage>
               playing ? audioHandler.pause() : audioHandler.play();
               playing ? _controller.stop() : _controller.repeat();
             },
-            child: playing
-                ? Icon(
-                    Icons.pause_rounded,
-                    color: AppColors.primary,
-                    size: 35,
-                  )
-                : Icon(
-                    Icons.play_arrow_rounded,
-                    color: AppColors.primary,
-                    size: 35,
-                  ),
+            child: SvgPicture.asset(
+              playing ? Assets.pause : Assets.play,
+            ),
           ),
         ),
       );

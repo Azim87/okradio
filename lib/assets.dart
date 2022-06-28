@@ -15,5 +15,6 @@ class Assets {
   static const list = "assets/icons/ic_s_list.svg";
   static const uList = "assets/icons/ic_uns_list.svg";
 
-  static const pause = 'assets/icons/ic_pause.png';
+  static const pause = 'assets/icons/ic_pause.svg';
+  static const call = 'assets/icons/ic_call.svg';
 }

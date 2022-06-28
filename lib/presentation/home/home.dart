@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ok_radio_flutter/presentation/message/message_page.dart';
 
 import '../../assets.dart';
 import '../play/play_page.dart';
@@ -11,13 +12,8 @@ class OkRadioHomePage extends StatefulWidget {
 }
 
 class _OkRadioHomePageState extends State<OkRadioHomePage> {
-  late final List<BottomNavigationBarItem>? bottomBarListItem;
-  late List _iconData = [
-    PlayRadioPage(),
-    PlayRadioPage(),
-    PlayRadioPage(),
-    PlayRadioPage()
-  ];
+  late final _pageViewController = PageController();
+
   int _currentIndex = 0;
 
   @override
@@ -27,49 +23,57 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _currentIndex == 0 ? Assets.play : Assets.uPlay,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _currentIndex == 1 ? Assets.envelop : Assets.uEnvelop,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _currentIndex == 2 ? Assets.browser : Assets.uBrowser,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _currentIndex == 3 ? Assets.list : Assets.uList,
-            ),
-            label: '',
-          ),
-        ],
-        onTap: onItemTap,
-        iconSize: 25,
-        elevation: 5,
-      ),
-      body: _iconData[_currentIndex],
-    );
+  void dispose() {
+    _pageViewController.dispose();
+    super.dispose();
   }
 
-  onItemTap(int index) {
-    setState(() => _currentIndex = index);
-  }
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Colors.white,
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                  _currentIndex == 0 ? Assets.play : Assets.uPlay),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                  _currentIndex == 1 ? Assets.envelop : Assets.uEnvelop),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                  _currentIndex == 2 ? Assets.browser : Assets.uBrowser),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                  _currentIndex == 3 ? Assets.list : Assets.uList),
+              label: '',
+            ),
+          ],
+          onTap: (index) {
+            _pageViewController.animateToPage(index,
+                duration: Duration(milliseconds: 200), curve: Curves.bounceOut);
+          },
+          iconSize: 25,
+          elevation: 5,
+        ),
+        body: PageView(
+          controller: _pageViewController,
+          children: [
+            PlayRadioPage(),
+            MessagePage(),
+            PlayRadioPage(),
+            PlayRadioPage()
+          ],
+          onPageChanged: (index) => setState(() => _currentIndex = index),
+        ),
+      );
 }
