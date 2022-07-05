@@ -10,6 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: # Add this line
+    sdk: flutter  
+  intl: ^0.17.0
+
   just_audio: ^0.9.20
   audio_service: ^0.18.4
   flutter_svg: ^1.0.3
@@ -21,7 +25,10 @@ dependencies:
   flutter_native_splash: ^2.2.3+1
   get_it: ^7.2.0
   injectable: ^1.5.3
-  
+  freezed: ^2.0.3+1
+  freezed_annotation: ^2.0.3
+  url_launcher: ^6.1.4
+
 
 dev_dependencies:
   flutter_test:
@@ -34,12 +41,15 @@ dev_dependencies:
   lottie: ^1.3.0
 
 flutter:
+  generate: true
+  uses-material-design: true
   assets:
     - assets/icons/
     - assets/images/
     - assets/anim/
+  
 
-  uses-material-design: true
+  
 
 flutter_native_splash:
   android_disable_fullscreen: true

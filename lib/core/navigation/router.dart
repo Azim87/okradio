@@ -1,7 +1,9 @@
 import 'package:auto_route/annotations.dart';
-import 'package:ok_radio_flutter/presentation/home/home.dart';
-import 'package:ok_radio_flutter/presentation/message/message_page.dart';
-import 'package:ok_radio_flutter/presentation/play/play_page.dart';
+
+import '/presentation/about/about_us.dart';
+import '/presentation/home/home.dart';
+import '/presentation/message/message_page.dart';
+import '/presentation/play/play_page.dart';
 
 @AdaptiveAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -9,6 +11,7 @@ import 'package:ok_radio_flutter/presentation/play/play_page.dart';
     AutoRoute(page: OkRadioHomePage, initial: true),
     AutoRoute(page: PlayRadioPage),
     AutoRoute(page: MessagePage),
+    AutoRoute(page: AboutUsPage),
   ],
 )
 class $AppRouter {}

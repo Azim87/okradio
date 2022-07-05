@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ok_radio_flutter/presentation/message/message_page.dart';
 
-import '../../assets.dart';
-import '../../colors.dart';
 import '../../core/navigation/navigation.dart';
 import '../../main.dart';
+import '../../util/assets.dart';
+import '../../util/colors.dart';
 
 class PlayRadioPage extends StatefulWidget {
   const PlayRadioPage({Key? key}) : super(key: key);
@@ -17,19 +19,12 @@ class PlayRadioPage extends StatefulWidget {
 
 class _PlayRadioPageState extends State<PlayRadioPage>
     with TickerProviderStateMixin {
-  late final AnimationController _controller;
-  @override
-  void initState() {
-    super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(hours: 1));
-    _controller.stop();
-  }
+  late AnimationController? _controller = AnimationController(vsync: this);
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _controller?.dispose();
   }
 
   @override
@@ -55,35 +50,36 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Align(
-                      alignment: Alignment.topRight,
-                      child: SvgPicture.asset(Assets.settings)),
+                    alignment: Alignment.topRight,
+                    child: PopUpWidget(),
+                  ),
                 ),
                 SizedBox(height: height.height * 0.05),
                 Center(
                   child: SvgPicture.asset(Assets.app_logo),
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  'Биринчи үй-бүлөк радио',
+                Text(
+                  AppLocalizations.of(context)!.familyRadio,
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                 ),
                 Expanded(child: Container()),
                 Lottie.asset(
                   'assets/anim/music.json',
                   controller: _controller,
-                  repeat: true,
-                  animate: true,
                   onLoaded: (composition) {
                     // Configure the AnimationController with the duration of the
                     // Lottie file and start the animation.
-                    _controller
-                      ..duration = composition.duration
-                      ..forward();
+
+                    if (mounted)
+                      setState(() {
+                        _controller
+                          ?..duration = composition.duration
+                          ..stop();
+                      });
                   },
                 ),
-                SizedBox(
-                  height: height.height * 0.1,
-                ),
+                SizedBox(height: height.height * 0.1),
                 StreamBuilder<bool>(
                   stream: audioHandler.playbackState
                       .map((event) => event.playing)
@@ -91,12 +87,12 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                   builder: (context, snapshot) {
                     var playing = snapshot.data ?? false;
 
-                    !playing ? _controller.reset() : _controller.repeat();
+                    !playing ? _controller?.reset() : _controller?.repeat();
 
                     return _buildPlayButton(playing);
                   },
                 ),
-                SizedBox(height: height.height * 0.1),
+                SizedBox(height: height.height * 0.05),
               ],
             ),
           ),
@@ -118,7 +114,6 @@ class _PlayRadioPageState extends State<PlayRadioPage>
               ),
               TextButton(
                 onPressed: () {
-                  // Navigator.of(context).pop(true);
                   Navigation.router.pop(true);
                   audioHandler.stop();
                 },
@@ -141,7 +136,7 @@ class _PlayRadioPageState extends State<PlayRadioPage>
             backgroundColor: AppColors.secondary,
             onPressed: () async {
               playing ? audioHandler.pause() : audioHandler.play();
-              playing ? _controller.stop() : _controller.repeat();
+              playing ? _controller?.stop() : _controller?.repeat();
             },
             child: SvgPicture.asset(
               playing ? Assets.pause : Assets.play,

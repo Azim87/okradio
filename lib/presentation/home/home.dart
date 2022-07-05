@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ok_radio_flutter/presentation/message/message_page.dart';
+import 'package:ok_radio_flutter/presentation/profile/profile_page.dart';
+import '../../util/assets.dart';
+import '/presentation/message/message_page.dart';
 
-import '../../assets.dart';
 import '../play/play_page.dart';
 
 class OkRadioHomePage extends StatefulWidget {
@@ -12,7 +13,7 @@ class OkRadioHomePage extends StatefulWidget {
 }
 
 class _OkRadioHomePageState extends State<OkRadioHomePage> {
-  late final _pageViewController = PageController();
+  final _pageViewController = PageController();
 
   int _currentIndex = 0;
 
@@ -24,8 +25,8 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
 
   @override
   void dispose() {
-    _pageViewController.dispose();
     super.dispose();
+    _pageViewController.dispose();
   }
 
   @override
@@ -38,30 +39,31 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                  _currentIndex == 0 ? Assets.play : Assets.uPlay),
+              icon: SvgPicture.asset(Assets.uPlay),
+              activeIcon: SvgPicture.asset(Assets.play),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                  _currentIndex == 1 ? Assets.envelop : Assets.uEnvelop),
+              icon: SvgPicture.asset(Assets.uEnvelop),
+              activeIcon: SvgPicture.asset(Assets.envelop),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                  _currentIndex == 2 ? Assets.browser : Assets.uBrowser),
+              icon: SvgPicture.asset(Assets.uBrowser),
+              activeIcon: SvgPicture.asset(Assets.browser),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                  _currentIndex == 3 ? Assets.list : Assets.uList),
+              icon: SvgPicture.asset(Assets.uList),
+              activeIcon: SvgPicture.asset(Assets.list),
               label: '',
             ),
           ],
-          onTap: (index) {
-            _pageViewController.animateToPage(index,
-                duration: Duration(milliseconds: 400), curve: Curves.easeIn);
-          },
+          onTap: (index) => _pageViewController.animateToPage(
+            index,
+            duration: Duration(milliseconds: 400),
+            curve: Curves.easeIn,
+          ),
           iconSize: 25,
           elevation: 5,
         ),
@@ -71,7 +73,7 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
             PlayRadioPage(),
             MessagePage(),
             PlayRadioPage(),
-            PlayRadioPage()
+            ProfilePage()
           ],
           onPageChanged: (index) => setState(() => _currentIndex = index),
         ),
