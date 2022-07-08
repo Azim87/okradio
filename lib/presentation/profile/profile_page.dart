@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ok_radio_flutter/util/colors.dart';
 import 'package:ok_radio_flutter/util/styles.dart';
 
 import '../../util/assets.dart';
@@ -33,15 +34,16 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: AppColors.white,
       body: Container(
         padding: const EdgeInsets.all(16),
         width: double.infinity,
         child: Column(
           children: [
-            SizedBox(height: height.height * 0.04),
+            SizedBox(height: size.height * 0.04),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -52,6 +54,7 @@ class ProfilePage extends StatelessWidget {
                 PopUpWidget(),
               ],
             ),
+            SizedBox(height: size.height * 0.01),
             Container(
               margin: const EdgeInsets.only(top: 10),
               height: 2,

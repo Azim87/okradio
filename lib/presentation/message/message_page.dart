@@ -60,44 +60,46 @@ class MessagePage extends StatelessWidget {
                   Center(child: SvgPicture.asset(Assets.app_logo)),
                   const SizedBox(height: 45),
                   BlocBuilder<MessageCubit, MessageState>(
-                    builder: (context, state) => Column(
-                      children: [
-                        CustomInputWidget(
-                          hintText: 'Имя*',
-                          keyboardType: TextInputType.name,
-                          onChanged: (name) => _messageCubit.onName(name),
-                        ),
-                        CustomInputWidget(
-                          hintText: 'Email или номер телефона*',
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged: (emailOrPhone) =>
-                              _messageCubit.onEmailOrPhone(emailOrPhone),
-                        ),
-                        CustomInputWidget(
-                          hintText: 'Ваше сообщение',
-                          keyboardType: TextInputType.text,
-                          onChanged: (message) =>
-                              _messageCubit.onMessage(message),
-                        ),
-                        const SizedBox(height: 22),
-                        CustomButton(
-                          buttonText: 'Отправить',
-                          color:
-                              !_messageCubit.name || !_messageCubit.emailOrPhone
-                                  ? AppColors.disabledColor
-                                  : AppColors.primary,
-                          onTap:
-                              !_messageCubit.name || !_messageCubit.emailOrPhone
-                                  ? null
-                                  : () {
-                                      if (state.name!.isNotEmpty ||
-                                          state.emailOrPhone!.isNotEmpty) {
-                                        _messageCubit.save();
-                                      }
-                                    },
-                        )
-                      ],
-                    ),
+                    builder: (context, state) {
+                      return Column(
+                        children: [
+                          CustomInputWidget(
+                            hintText: 'Имя*',
+                            keyboardType: TextInputType.name,
+                            onChanged: (name) => _messageCubit.onName(name),
+                          ),
+                          CustomInputWidget(
+                            hintText: 'Email или номер телефона*',
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (emailOrPhone) =>
+                                _messageCubit.onEmailOrPhone(emailOrPhone),
+                          ),
+                          CustomInputWidget(
+                            hintText: 'Ваше сообщение',
+                            keyboardType: TextInputType.text,
+                            onChanged: (message) =>
+                                _messageCubit.onMessage(message),
+                          ),
+                          const SizedBox(height: 22),
+                          CustomButton(
+                            buttonText: 'Отправить',
+                            color: !_messageCubit.name ||
+                                    !_messageCubit.emailOrPhone
+                                ? AppColors.disabledColor
+                                : AppColors.primary,
+                            onTap: !_messageCubit.name ||
+                                    !_messageCubit.emailOrPhone
+                                ? null
+                                : () {
+                                    if (state.name!.isNotEmpty ||
+                                        state.emailOrPhone!.isNotEmpty) {
+                                      _messageCubit.save();
+                                    }
+                                  },
+                          )
+                        ],
+                      );
+                    },
                   ),
                   Expanded(child: const SizedBox(height: 20)),
                   CircleAvatar(
@@ -190,12 +192,12 @@ class _PopUpWidgetState extends State<PopUpWidget> {
                       child: Row(
                         children: [
                           Text(
-                            locale ? 'Русский' : 'Кыргызча',
+                            !state.locale ? 'Русский' : 'Кыргызча',
                             style: Styles.popUpTextStyle,
                           ),
                           const SizedBox(width: 8),
                           SvgPicture.asset(
-                            locale ? Assets.rusFlag : Assets.kgFlag,
+                            !state.locale ? Assets.rusFlag : Assets.kgFlag,
                             height: 25,
                           )
                         ],

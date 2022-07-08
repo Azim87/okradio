@@ -1,3 +1,10 @@
 {
-    "familyRadio" : "Первое семейное радио"
+    "familyRadio" : "Первое семейное радио",
+    "ponedelnik" : "Понедельник",
+    "vtornik" : "Вторник",
+    "sreda" : "Среда",
+    "chetverg" : "Четверг",
+    "pyatnitsa" : "Пятница",
+    "subota" : "Суббота",
+    "voskresenie" : "Воскресенье"
 }

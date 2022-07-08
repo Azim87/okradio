@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ok_radio_flutter/presentation/profile/profile_page.dart';
+import 'package:ok_radio_flutter/presentation/program/program_page.dart';
 import '../../util/assets.dart';
 import '/presentation/message/message_page.dart';
 
@@ -72,8 +73,8 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
           children: [
             PlayRadioPage(),
             MessagePage(),
-            PlayRadioPage(),
-            ProfilePage()
+            ProgramPage(),
+            ProfilePage(),
           ],
           onPageChanged: (index) => setState(() => _currentIndex = index),
         ),

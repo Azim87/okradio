@@ -1,3 +1,10 @@
 {
-    "familyRadio" : "Биринчи уй-булолук радио"
+    "familyRadio" : "Биринчи уй-булолук радио",
+    "ponedelnik" : "Дүйшөмбү",
+    "vtornik" : "Шейшемби",
+    "sreda" : "Шаршемби",
+    "chetverg" : "Бейшенби",
+    "pyatnitsa" : "Жума",
+    "subota" : "Ишемби",
+    "voskresenie" : "Жекшемби"
 }

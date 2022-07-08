@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
-
+import 'package:mailto/mailto.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'message_state.dart';
 
 @lazySingleton
@@ -18,5 +19,13 @@ class MessageCubit extends Cubit<MessageState> {
 
   void onMessage(String message) => emit(state.copyWith(message: message));
 
-  void save() {}
+  void save() async {
+    final mailtoLink = Mailto(
+      to: ['to@example.com'],
+      subject: "from ${state.emailOrPhone}",
+      body: state.message,
+    );
+
+    await launchUrl(Uri.parse('$mailtoLink'));
+  }
 }
