@@ -1,4 +1,6 @@
 import 'package:auto_route/annotations.dart';
+import 'package:ok_radio_flutter/presentation/program/program_page.dart';
+import 'package:ok_radio_flutter/presentation/share/share_page.dart';
 
 import '/presentation/about/about_us.dart';
 import '/presentation/home/home.dart';
@@ -11,7 +13,9 @@ import '/presentation/play/play_page.dart';
     AutoRoute(page: OkRadioHomePage, initial: true),
     AutoRoute(page: PlayRadioPage),
     AutoRoute(page: MessagePage),
+    AutoRoute(page: ProgramsPage),
     AutoRoute(page: AboutUsPage),
+    AutoRoute(page: SharePage),
   ],
 )
 class $AppRouter {}

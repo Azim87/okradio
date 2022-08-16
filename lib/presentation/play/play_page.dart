@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ok_radio_flutter/presentation/message/message_page.dart';
 
 import '../../core/navigation/navigation.dart';
 import '../../main.dart';
 import '../../util/assets.dart';
 import '../../util/colors.dart';
+import '../widgets/popup_widget.dart';
 
 class PlayRadioPage extends StatefulWidget {
   const PlayRadioPage({Key? key}) : super(key: key);
@@ -54,7 +54,6 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                     child: PopUpWidget(),
                   ),
                 ),
-                SizedBox(height: height.height * 0.05),
                 Center(
                   child: SvgPicture.asset(Assets.app_logo),
                 ),
@@ -68,15 +67,13 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                   'assets/anim/music.json',
                   controller: _controller,
                   onLoaded: (composition) {
-                    // Configure the AnimationController with the duration of the
-                    // Lottie file and start the animation.
+                    if (!mounted) return;
 
-                    if (mounted)
-                      setState(() {
-                        _controller
-                          ?..duration = composition.duration
-                          ..stop();
-                      });
+                    setState(() {
+                      _controller
+                        ?..duration = composition.duration
+                        ..stop();
+                    });
                   },
                 ),
                 SizedBox(height: height.height * 0.1),
@@ -85,9 +82,9 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                       .map((event) => event.playing)
                       .distinct(),
                   builder: (context, snapshot) {
-                    var playing = snapshot.data ?? false;
+                    final playing = snapshot.data ?? false;
 
-                    !playing ? _controller?.reset() : _controller?.repeat();
+                    playing ? _controller?.repeat() : _controller?.stop();
 
                     return _buildPlayButton(playing);
                   },
@@ -104,7 +101,7 @@ class _PlayRadioPageState extends State<PlayRadioPage>
   Future<bool> _onWillPop(BuildContext context) async {
     return (await showDialog(
           context: context,
-          builder: (context) => new AlertDialog(
+          builder: (context) => AlertDialog(
             title: Text('Are you sure?'),
             content: Text('Do you want to exit an App'),
             actions: [

@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:ok_radio_flutter/presentation/archive/archive_page.dart';
 import 'package:ok_radio_flutter/presentation/schedule/schedule_page.dart';
 import 'package:ok_radio_flutter/util/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../util/styles.dart';
-import '../message/message_page.dart';
+import '../widgets/popup_widget.dart';
 
-class ProgramPage extends StatefulWidget {
-  ProgramPage({Key? key}) : super(key: key);
+class ProgramsPage extends StatefulWidget {
+  ProgramsPage({Key? key}) : super(key: key);
 
   @override
-  State<ProgramPage> createState() => _ProgramPageState();
+  State<ProgramsPage> createState() => _ProgramsPageState();
 }
 
-class _ProgramPageState extends State<ProgramPage> {
+class _ProgramsPageState extends State<ProgramsPage> {
   late bool archive = false;
 
   late bool schedule = true;
+
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class _ProgramPageState extends State<ProgramPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Программы',
+                  AppLocalizations.of(context)!.programs,
                   style: Styles.defaultPageTitleStyle,
                 ),
                 PopUpWidget(),
@@ -131,7 +134,7 @@ class _ProgramPageState extends State<ProgramPage> {
             ),
             const SizedBox(height: 16),
             if (archive) ArchivePage(),
-            if (schedule) SchedulePage(),
+            if (schedule) SchedulePage()
           ],
         ),
       ),

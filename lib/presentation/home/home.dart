@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ok_radio_flutter/presentation/profile/profile_page.dart';
-import 'package:ok_radio_flutter/presentation/program/program_page.dart';
 import '../../util/assets.dart';
-import '/presentation/message/message_page.dart';
-
+import '../message/message_page.dart';
 import '../play/play_page.dart';
+import '../profile/profile_page.dart';
+import '../program/program_page.dart';
 
 class OkRadioHomePage extends StatefulWidget {
   @override
@@ -15,7 +14,6 @@ class OkRadioHomePage extends StatefulWidget {
 
 class _OkRadioHomePageState extends State<OkRadioHomePage> {
   final _pageViewController = PageController();
-
   int _currentIndex = 0;
 
   @override
@@ -60,11 +58,13 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
               label: '',
             ),
           ],
-          onTap: (index) => _pageViewController.animateToPage(
-            index,
-            duration: Duration(milliseconds: 400),
-            curve: Curves.easeIn,
-          ),
+          onTap: (index) {
+            _pageViewController.animateToPage(
+              index,
+              duration: Duration(milliseconds: 400),
+              curve: Curves.easeIn,
+            );
+          },
           iconSize: 25,
           elevation: 5,
         ),
@@ -73,10 +73,13 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
           children: [
             PlayRadioPage(),
             MessagePage(),
-            ProgramPage(),
+            ProgramsPage(),
             ProfilePage(),
           ],
-          onPageChanged: (index) => setState(() => _currentIndex = index),
+          onPageChanged: (index) {
+            setState(() => _currentIndex = index);
+            WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+          },
         ),
       );
 }
