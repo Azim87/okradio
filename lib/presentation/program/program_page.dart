@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:ok_radio_flutter/presentation/archive/archive_page.dart';
+import 'package:ok_radio_flutter/presentation/archive/cubit/archive_cubit.dart';
 import 'package:ok_radio_flutter/presentation/schedule/schedule_page.dart';
 import 'package:ok_radio_flutter/util/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../core/di/inject.dart';
 import '../../util/styles.dart';
 import '../widgets/popup_widget.dart';
 
@@ -20,6 +23,8 @@ class _ProgramsPageState extends State<ProgramsPage> {
   late bool schedule = true;
 
   String? selectedValue;
+
+  final cubit = get<ArchiveCubit>();
 
   @override
   Widget build(BuildContext context) {

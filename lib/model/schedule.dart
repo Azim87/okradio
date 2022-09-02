@@ -1,19 +1,19 @@
 class Schedule {
-  final String? programTime;
-  final String? programTitle;
-  final String? programDescription;
+  final String? scheduleTime;
+  final String? scheduleTitle;
+  final String? scheduleDescription;
 
   const Schedule(
-    this.programTime,
-    this.programTitle,
-    this.programDescription,
+    this.scheduleTime,
+    this.scheduleTitle,
+    this.scheduleDescription,
   );
 
-  List<Schedule> programData() {
-    final _programList = <Schedule>[
-      Schedule('00:00', 'Сыр маек (кайталоо)', programDescription),
+  List<Schedule> scheduleData() {
+    final _scheduleList = <Schedule>[
+      Schedule('00:00', 'Сыр маек (кайталоо)', scheduleDescription),
     ];
 
-    return _programList;
+    return _scheduleList;
   }
 }
