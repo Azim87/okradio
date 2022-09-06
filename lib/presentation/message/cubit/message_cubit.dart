@@ -13,15 +13,23 @@ class MessageCubit extends Cubit<MessageState> {
 
   bool get emailOrPhone => state.emailOrPhone!.length > 0;
 
-  void onName(String name) => emit(state.copyWith(name: name));
+  void onName(String name) {
+    print('name: $name');
+    emit(state.copyWith(name: name));
+  }
 
-  void onEmailOrPhone(String emailOrPhone) =>
-      emit(state.copyWith(emailOrPhone: emailOrPhone));
+  void onEmailOrPhone(String emailOrPhone) {
+    print('emailOrPhone: $emailOrPhone');
+    emit(state.copyWith(emailOrPhone: emailOrPhone));
+  }
 
-  void onMessage(String message) => emit(state.copyWith(message: message));
+  void onMessage(String message) {
+    print('message: $message');
+    emit(state.copyWith(message: message));
+  }
 
   Future<void> makeCall() async {
-    final Uri _phoneUri = Uri(scheme: "tel", path: '+996555000000');
+    final Uri _phoneUri = Uri(scheme: "tel", path: '+996705531664');
 
     try {
       if (await canLaunchUrl(_phoneUri)) await launchUrl(_phoneUri);

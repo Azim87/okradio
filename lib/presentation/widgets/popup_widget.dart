@@ -51,15 +51,15 @@ class _PopUpWidgetState extends State<PopUpWidget> {
                       },
                     ),
                   ),
-                  PopupMenuItem(
-                    child: TextButton(
-                      child: Text(
-                        AppLocalizations.of(context)!.connection,
-                        style: Styles.popUpTextStyle,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
+                  // PopupMenuItem(
+                  //   child: TextButton(
+                  //     child: Text(
+                  //       AppLocalizations.of(context)!.connection,
+                  //       style: Styles.popUpTextStyle,
+                  //     ),
+                  //     onPressed: () {},
+                  //   ),
+                  // ),
                   PopupMenuItem(
                     child: TextButton(
                       child: Text(

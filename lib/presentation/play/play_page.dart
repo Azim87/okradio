@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ok_radio_flutter/core/newtork/network_checker.dart';
 
 import '../../core/navigation/navigation.dart';
 import '../../main.dart';
@@ -20,6 +22,7 @@ class PlayRadioPage extends StatefulWidget {
 class _PlayRadioPageState extends State<PlayRadioPage>
     with TickerProviderStateMixin {
   late AnimationController? _controller = AnimationController(vsync: this);
+  late final NetworkChecker network = NetworkChecker();
 
   @override
   void dispose() {
@@ -132,8 +135,14 @@ class _PlayRadioPageState extends State<PlayRadioPage>
             elevation: 0,
             backgroundColor: AppColors.secondary,
             onPressed: () async {
-              playing ? audioHandler.pause() : audioHandler.play();
-              playing ? _controller?.stop() : _controller?.repeat();
+              if (await network.isConnected) {
+                print('true');
+                playing ? audioHandler.pause() : audioHandler.play();
+                playing ? _controller?.stop() : _controller?.repeat();
+              } else {
+                print('false');
+                Fluttertoast.showToast(msg: 'no internet connection');
+              }
             },
             child: SvgPicture.asset(
               playing ? Assets.pause : Assets.play,
