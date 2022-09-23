@@ -18,11 +18,17 @@ class ArchivePage extends StatelessWidget {
     return BlocBuilder<ArchiveCubit, ArchiveState>(
       bloc: archiveCubit..getArchives(),
       builder: (context, state) {
-        print(state.archives);
+        final loading = state.loading;
+
+        if (loading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
         return Expanded(
           child: ListView.builder(
-            shrinkWrap: false,
+            shrinkWrap: true,
             itemCount: state.archives.length,
             itemBuilder: (context, index) => Container(
               margin: const EdgeInsets.symmetric(vertical: 8),

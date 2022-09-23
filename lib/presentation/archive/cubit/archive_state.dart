@@ -7,7 +7,8 @@ part 'archive_state.freezed.dart';
 @freezed
 class ArchiveState with _$ArchiveState {
   const factory ArchiveState({
-    int? id,
+    @Default(false) bool loading,
     @Default([]) List<Archive> archives,
+    @Default([]) List<Archive> oldArchives,
   }) = _ArchiveState;
 }

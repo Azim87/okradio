@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ArchiveState {
-  int? get id => throw _privateConstructorUsedError;
+  bool get loading => throw _privateConstructorUsedError;
   List<Archive> get archives => throw _privateConstructorUsedError;
+  List<Archive> get oldArchives => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ArchiveStateCopyWith<ArchiveState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $ArchiveStateCopyWith<$Res> {
   factory $ArchiveStateCopyWith(
           ArchiveState value, $Res Function(ArchiveState) then) =
       _$ArchiveStateCopyWithImpl<$Res>;
-  $Res call({int? id, List<Archive> archives});
+  $Res call({bool loading, List<Archive> archives, List<Archive> oldArchives});
 }
 
 /// @nodoc
@@ -42,17 +43,22 @@ class _$ArchiveStateCopyWithImpl<$Res> implements $ArchiveStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? loading = freezed,
     Object? archives = freezed,
+    Object? oldArchives = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+      loading: loading == freezed
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
       archives: archives == freezed
           ? _value.archives
           : archives // ignore: cast_nullable_to_non_nullable
+              as List<Archive>,
+      oldArchives: oldArchives == freezed
+          ? _value.oldArchives
+          : oldArchives // ignore: cast_nullable_to_non_nullable
               as List<Archive>,
     ));
   }
@@ -65,7 +71,7 @@ abstract class _$$_ArchiveStateCopyWith<$Res>
           _$_ArchiveState value, $Res Function(_$_ArchiveState) then) =
       __$$_ArchiveStateCopyWithImpl<$Res>;
   @override
-  $Res call({int? id, List<Archive> archives});
+  $Res call({bool loading, List<Archive> archives, List<Archive> oldArchives});
 }
 
 /// @nodoc
@@ -81,17 +87,22 @@ class __$$_ArchiveStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? loading = freezed,
     Object? archives = freezed,
+    Object? oldArchives = freezed,
   }) {
     return _then(_$_ArchiveState(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+      loading: loading == freezed
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
       archives: archives == freezed
           ? _value._archives
           : archives // ignore: cast_nullable_to_non_nullable
+              as List<Archive>,
+      oldArchives: oldArchives == freezed
+          ? _value._oldArchives
+          : oldArchives // ignore: cast_nullable_to_non_nullable
               as List<Archive>,
     ));
   }
@@ -100,11 +111,16 @@ class __$$_ArchiveStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ArchiveState implements _ArchiveState {
-  const _$_ArchiveState({this.id, final List<Archive> archives = const []})
-      : _archives = archives;
+  const _$_ArchiveState(
+      {this.loading = false,
+      final List<Archive> archives = const [],
+      final List<Archive> oldArchives = const []})
+      : _archives = archives,
+        _oldArchives = oldArchives;
 
   @override
-  final int? id;
+  @JsonKey()
+  final bool loading;
   final List<Archive> _archives;
   @override
   @JsonKey()
@@ -113,9 +129,17 @@ class _$_ArchiveState implements _ArchiveState {
     return EqualUnmodifiableListView(_archives);
   }
 
+  final List<Archive> _oldArchives;
+  @override
+  @JsonKey()
+  List<Archive> get oldArchives {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_oldArchives);
+  }
+
   @override
   String toString() {
-    return 'ArchiveState(id: $id, archives: $archives)';
+    return 'ArchiveState(loading: $loading, archives: $archives, oldArchives: $oldArchives)';
   }
 
   @override
@@ -123,15 +147,18 @@ class _$_ArchiveState implements _ArchiveState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ArchiveState &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other._archives, _archives));
+            const DeepCollectionEquality().equals(other.loading, loading) &&
+            const DeepCollectionEquality().equals(other._archives, _archives) &&
+            const DeepCollectionEquality()
+                .equals(other._oldArchives, _oldArchives));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(_archives));
+      const DeepCollectionEquality().hash(loading),
+      const DeepCollectionEquality().hash(_archives),
+      const DeepCollectionEquality().hash(_oldArchives));
 
   @JsonKey(ignore: true)
   @override
@@ -140,13 +167,17 @@ class _$_ArchiveState implements _ArchiveState {
 }
 
 abstract class _ArchiveState implements ArchiveState {
-  const factory _ArchiveState({final int? id, final List<Archive> archives}) =
-      _$_ArchiveState;
+  const factory _ArchiveState(
+      {final bool loading,
+      final List<Archive> archives,
+      final List<Archive> oldArchives}) = _$_ArchiveState;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  bool get loading => throw _privateConstructorUsedError;
   @override
   List<Archive> get archives => throw _privateConstructorUsedError;
+  @override
+  List<Archive> get oldArchives => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ArchiveStateCopyWith<_$_ArchiveState> get copyWith =>
