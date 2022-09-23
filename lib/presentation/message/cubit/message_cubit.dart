@@ -29,7 +29,7 @@ class MessageCubit extends Cubit<MessageState> {
   }
 
   Future<void> makeCall() async {
-    final Uri _phoneUri = Uri(scheme: "tel", path: '+996705531664');
+    final Uri _phoneUri = Uri(scheme: "tel", path: '0312 91 19 19');
 
     try {
       if (await canLaunchUrl(_phoneUri)) await launchUrl(_phoneUri);

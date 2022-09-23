@@ -56,6 +56,7 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Container(
             padding: const EdgeInsets.all(16),
             width: double.infinity,
@@ -78,6 +79,7 @@ class ProfilePage extends StatelessWidget {
                   color: Color(0xFFD9D9D9),
                 ),
                 ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.only(top: 16),
                   shrinkWrap: true,
                   itemBuilder: (context, index) => ListTile(
@@ -108,6 +110,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.only(top: 16),
                   shrinkWrap: true,
                   itemBuilder: (context, index) => ListTile(
