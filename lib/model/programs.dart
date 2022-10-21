@@ -1,82 +1,35 @@
-import 'package:ok_radio_flutter/util/assets.dart';
+import 'package:hive/hive.dart';
 
-class Programs {
-  final String? programsImageAsset;
-  final String? programsTitle;
-  final String? programsDescription;
+part 'programs.g.dart';
 
-  const Programs({
-    this.programsImageAsset,
-    this.programsTitle,
-    this.programsDescription,
+@HiveType(typeId: 1)
+class Programs extends HiveObject {
+  @HiveField(0)
+  String? title;
+  @HiveField(1)
+  String? content;
+  @HiveField(2)
+  String? image;
+  @HiveField(3)
+  int? id;
+
+  Programs({
+    this.title,
+    this.content,
+    this.image,
+    this.id,
   });
 
-  List<Programs> get programData => programsData();
+  factory Programs.fromJson(Map<String, dynamic> parsedJson) {
+    return Programs(
+        id: parsedJson['id'],
+        title: parsedJson['title'].toString(),
+        image: parsedJson['image'].toString(),
+        content: parsedJson['content'].toString());
+  }
 
-  List<Programs> programsData() {
-    final _programsList = <Programs>[
-      Programs(
-        programsTitle: 'Ашар',
-        programsDescription:
-            '«Ашар» уктуруусунда замандашыбыздын кѳйгѳйүн ортого салып, чыгуу жолун бирге издейбиз. Эгер сиз да кайсы бир кырдаалдан чыгуу жолун таппай турсаӊыз, «Ашарга» кош келиӊиз. Сейил Калдыбаева жалпы угармандарыбыз менен бирге жардам берүүгѳ даяр. Жуманын бейшемби күнү, саат 18:00дѳ сиздерди «ОК» радиосунун аба толкунунда күтөбүз.',
-        programsImageAsset: Assets.image1,
-      ),
-      Programs(
-        programsTitle: 'Кутман Таң',
-        programsDescription:
-            '«Таӊды кандай тозсоӊуз, күнүӊүз ошондой уланат!» Жашоо — күндөрдөн, ал эми күн аткан таӊдан турат! Ар бир күнүӊүз көӊүлдүү жана пайдалуу өтсүн, коомдон артта калбайын, бардыгынан кабардар болоюн десеӊиз, «Ок» радиосунун «Кутман таӊ» шоу уктуруусуна кош келиӊиз! Иш күндөрү таӊкы саат 8.00-10.00 гө чейин таӊкы шоуну Айнура Миназарованын жана Канат Алманбетовтун алып баруусунда угуӊуздар!',
-        programsImageAsset: Assets.image2,
-      ),
-      Programs(
-        programsTitle: 'Назар',
-        programsDescription:
-            'Коомдук кырдаалга Карыпов Уланбек менен чогу назар салыӊыздар.',
-        programsImageAsset: Assets.image3,
-      ),
-      Programs(
-        programsTitle: 'Бар заман',
-        programsDescription:
-            'Үй-бүлө институту ар түрдүү коомдо ар кандай жолдорду басып өтүп, калыптанат. Бүгүнкү күндө төгөрөгү төп келген, бардыгы кенен, коогасыз БАР ЗАМАНДА жакшыдан үлгү алып, жамандан арылып, үй-бүлөнүн түндүгү бийик көтөрүлүп турушуна көз салуу гана зарыл. “БАР ЗАМАН” үй-бүлөнүн учурдун талабына шайкеш, улуттук дөөлөттөрдү бийик кармап, бакубат өмүр сүрүүгө үндөйт.',
-        programsImageAsset: Assets.image4,
-      ),
-      Programs(
-        programsTitle: 'Секреты счастья',
-        programsDescription:
-            '"Секреты счастья" - это школа жизни на "Радио Ок". Как жить, чтобы ощущать радость и удовлетворение и не чувствовать себя несчастным. В прямом эфире - уроки практической психологии и беседы с интересными людьми. Гости ток-шоу делятся своим пониманием счастья и отвечают на вопросы радиослушателей вместе с ведущей передачи Бермет Бексултан.',
-        programsImageAsset: Assets.image5,
-      ),
-      Programs(
-        programsTitle: 'День добрый',
-        programsDescription:
-            '«День Добрый!» с 7 до 9 утра с понедельника по пятницу в прямом эфире Теос! Ответы и практические рекомендации от психолога Евгения Сарапулова.',
-        programsImageAsset: Assets.image6,
-      ),
-      Programs(
-        programsTitle: 'Сыр Маек',
-        programsDescription:
-            'Аптанын шаршемби күнү, кечки саат алтыда «ОК» радиосунун «Сыр маек» уктуруусунан сизди күтөбүз. Уюткулуу элибиздин, сыймыктуу инсандары сиздерге сырын ачып, кызыктуу маек куруп беришет. Студиябыздын куттуу төрүнө Канат Алманбетов чакырат.',
-        programsImageAsset: Assets.image7,
-      ),
-      Programs(
-        programsTitle: 'Апалар Мектеби',
-        programsDescription:
-            'Бала тарбиялоо – аялдын эӊ улуу иши. Эне баласынын денеси үчүн гана кам көрбөстөн, анын жан дүйнөсүнө, жүрүм-турумуна, адеп-ахлактык тарбиясына зор таасир берет. Ал балдарынын жакшы адаттарды өздөштүрүүсүнө көмөктөшөт. Баланын адаттары жаӊыдан пайда болуп, мүнөзү калыптанып келе жатканда, эненин таасири баарынан күчтүү.',
-        programsImageAsset: Assets.image8,
-      ),
-      Programs(
-        programsTitle: 'Иммунитет',
-        programsDescription:
-            'Ден соолуктун камын кѳрүп, сергек жашоо образын сактап, узак, сапаттуу жана бактылуу ѳмүр сүргүңүз келсе, “Иммунитет” программасы сиз үчүн! Уктуруубузда дарыгерлер, диетологдор, ден соолукка кам кѳрүүгѳ мыкты кеңеш бере алган ар тараптуу инсандар конокто болот. Уктуруунун алып баруучусу журналист Айнура Миназарова сиздерди ар дүйшѳмбү кечки саат 18.00до Ок радиосунда күтѳт!',
-        programsImageAsset: Assets.image9,
-      ),
-      Programs(
-        programsTitle: 'Ощути силу перемен',
-        programsDescription:
-            'В передаче "Ощути силу перемен" Алтынбек Искендеров разберёт самые актуальные жизненные вопросы и пригласит самых интересных гостей. ',
-        programsImageAsset: Assets.image10,
-      ),
-    ];
-
-    return _programsList;
+  @override
+  String toString() {
+    return 'Programs(title: $title, content: $content,  image: $image, id: $id,)';
   }
 }

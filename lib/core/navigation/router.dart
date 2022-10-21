@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:ok_radio_flutter/presentation/archive/archive_details/archive_derails_page.dart';
 import 'package:ok_radio_flutter/presentation/program/program_page.dart';
 import 'package:ok_radio_flutter/presentation/share/share_page.dart';
 
@@ -16,6 +17,7 @@ import '/presentation/play/play_page.dart';
     AutoRoute(page: ProgramsPage),
     AutoRoute(page: AboutUsPage),
     AutoRoute(page: SharePage),
+    AutoRoute(page: ArchiveDetailsPage)
   ],
 )
 class $AppRouter {}

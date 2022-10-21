@@ -131,7 +131,7 @@ abstract class _ScheduleState implements ScheduleState {
       _$_ScheduleState;
 
   @override
-  List<Schedule>? get scheduleList => throw _privateConstructorUsedError;
+  List<Schedule>? get scheduleList;
   @override
   @JsonKey(ignore: true)
   _$$_ScheduleStateCopyWith<_$_ScheduleState> get copyWith =>

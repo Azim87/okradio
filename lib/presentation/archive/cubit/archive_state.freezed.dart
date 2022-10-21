@@ -17,8 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ArchiveState {
   bool get loading => throw _privateConstructorUsedError;
-  List<Archive> get archives => throw _privateConstructorUsedError;
-  List<Archive> get oldArchives => throw _privateConstructorUsedError;
+  List<Programs> get programs => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ArchiveStateCopyWith<ArchiveState> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $ArchiveStateCopyWith<$Res> {
   factory $ArchiveStateCopyWith(
           ArchiveState value, $Res Function(ArchiveState) then) =
       _$ArchiveStateCopyWithImpl<$Res>;
-  $Res call({bool loading, List<Archive> archives, List<Archive> oldArchives});
+  $Res call({bool loading, List<Programs> programs, int id});
 }
 
 /// @nodoc
@@ -44,22 +44,22 @@ class _$ArchiveStateCopyWithImpl<$Res> implements $ArchiveStateCopyWith<$Res> {
   @override
   $Res call({
     Object? loading = freezed,
-    Object? archives = freezed,
-    Object? oldArchives = freezed,
+    Object? programs = freezed,
+    Object? id = freezed,
   }) {
     return _then(_value.copyWith(
       loading: loading == freezed
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
-      archives: archives == freezed
-          ? _value.archives
-          : archives // ignore: cast_nullable_to_non_nullable
-              as List<Archive>,
-      oldArchives: oldArchives == freezed
-          ? _value.oldArchives
-          : oldArchives // ignore: cast_nullable_to_non_nullable
-              as List<Archive>,
+      programs: programs == freezed
+          ? _value.programs
+          : programs // ignore: cast_nullable_to_non_nullable
+              as List<Programs>,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -71,7 +71,7 @@ abstract class _$$_ArchiveStateCopyWith<$Res>
           _$_ArchiveState value, $Res Function(_$_ArchiveState) then) =
       __$$_ArchiveStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool loading, List<Archive> archives, List<Archive> oldArchives});
+  $Res call({bool loading, List<Programs> programs, int id});
 }
 
 /// @nodoc
@@ -88,22 +88,22 @@ class __$$_ArchiveStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? loading = freezed,
-    Object? archives = freezed,
-    Object? oldArchives = freezed,
+    Object? programs = freezed,
+    Object? id = freezed,
   }) {
     return _then(_$_ArchiveState(
       loading: loading == freezed
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
-      archives: archives == freezed
-          ? _value._archives
-          : archives // ignore: cast_nullable_to_non_nullable
-              as List<Archive>,
-      oldArchives: oldArchives == freezed
-          ? _value._oldArchives
-          : oldArchives // ignore: cast_nullable_to_non_nullable
-              as List<Archive>,
+      programs: programs == freezed
+          ? _value._programs
+          : programs // ignore: cast_nullable_to_non_nullable
+              as List<Programs>,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -113,33 +113,28 @@ class __$$_ArchiveStateCopyWithImpl<$Res>
 class _$_ArchiveState implements _ArchiveState {
   const _$_ArchiveState(
       {this.loading = false,
-      final List<Archive> archives = const [],
-      final List<Archive> oldArchives = const []})
-      : _archives = archives,
-        _oldArchives = oldArchives;
+      final List<Programs> programs = const [],
+      this.id = 0})
+      : _programs = programs;
 
   @override
   @JsonKey()
   final bool loading;
-  final List<Archive> _archives;
+  final List<Programs> _programs;
   @override
   @JsonKey()
-  List<Archive> get archives {
+  List<Programs> get programs {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_archives);
+    return EqualUnmodifiableListView(_programs);
   }
 
-  final List<Archive> _oldArchives;
   @override
   @JsonKey()
-  List<Archive> get oldArchives {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_oldArchives);
-  }
+  final int id;
 
   @override
   String toString() {
-    return 'ArchiveState(loading: $loading, archives: $archives, oldArchives: $oldArchives)';
+    return 'ArchiveState(loading: $loading, programs: $programs, id: $id)';
   }
 
   @override
@@ -148,17 +143,16 @@ class _$_ArchiveState implements _ArchiveState {
         (other.runtimeType == runtimeType &&
             other is _$_ArchiveState &&
             const DeepCollectionEquality().equals(other.loading, loading) &&
-            const DeepCollectionEquality().equals(other._archives, _archives) &&
-            const DeepCollectionEquality()
-                .equals(other._oldArchives, _oldArchives));
+            const DeepCollectionEquality().equals(other._programs, _programs) &&
+            const DeepCollectionEquality().equals(other.id, id));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(loading),
-      const DeepCollectionEquality().hash(_archives),
-      const DeepCollectionEquality().hash(_oldArchives));
+      const DeepCollectionEquality().hash(_programs),
+      const DeepCollectionEquality().hash(id));
 
   @JsonKey(ignore: true)
   @override
@@ -169,15 +163,15 @@ class _$_ArchiveState implements _ArchiveState {
 abstract class _ArchiveState implements ArchiveState {
   const factory _ArchiveState(
       {final bool loading,
-      final List<Archive> archives,
-      final List<Archive> oldArchives}) = _$_ArchiveState;
+      final List<Programs> programs,
+      final int id}) = _$_ArchiveState;
 
   @override
-  bool get loading => throw _privateConstructorUsedError;
+  bool get loading;
   @override
-  List<Archive> get archives => throw _privateConstructorUsedError;
+  List<Programs> get programs;
   @override
-  List<Archive> get oldArchives => throw _privateConstructorUsedError;
+  int get id;
   @override
   @JsonKey(ignore: true)
   _$$_ArchiveStateCopyWith<_$_ArchiveState> get copyWith =>

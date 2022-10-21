@@ -2,22 +2,33 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:ok_radio_flutter/model/archive.dart';
+import 'package:ok_radio_flutter/model/programs.dart';
 
 @lazySingleton
 class LocalData {
   LocalData();
 
-  final box = Hive.box<Archive>('personList');
+  final programBox = Hive.box<Programs>('programBox');
+  final archiveBox = Hive.box<Archive>('archiveBox');
 
   Future<void> clearCache() async {
-    await box.clear();
+    await archiveBox.clear();
+    await programBox.clear();
   }
 
   Future<List<Archive>> getArchives() async {
-    return box.toMap().values.toList().cast();
+    return archiveBox.toMap().values.toList().cast();
   }
 
   Future<void> addArchives(List<Archive> archive) async {
-    box.addAll(archive);
+    archiveBox.addAll(archive);
+  }
+
+  Future<List<Programs>> getPrograms() async {
+    return programBox.toMap().values.toList().cast();
+  }
+
+  Future<void> addPrograms(List<Programs> archive) async {
+    programBox.addAll(archive);
   }
 }

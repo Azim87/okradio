@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../model/archive.dart';
+import '../../../model/programs.dart';
 
 part 'archive_state.freezed.dart';
 
@@ -8,7 +8,7 @@ part 'archive_state.freezed.dart';
 class ArchiveState with _$ArchiveState {
   const factory ArchiveState({
     @Default(false) bool loading,
-    @Default([]) List<Archive> archives,
-    @Default([]) List<Archive> oldArchives,
+    @Default([]) List<Programs> programs,
+    @Default(0) int id,
   }) = _ArchiveState;
 }

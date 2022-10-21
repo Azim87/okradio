@@ -6,6 +6,8 @@ import 'package:ok_radio_flutter/presentation/schedule/cubit/schedule_cubit.dart
 import 'package:ok_radio_flutter/util/enums.dart';
 import 'package:ok_radio_flutter/util/extensions.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
 
@@ -28,7 +30,9 @@ class _SchedulePageState extends State<SchedulePage> {
                 buttonHeight: 30,
                 itemHeight: 30,
                 decoration: InputDecoration(
-                  label: Text('Выберите день недели'),
+                  label: Text(
+                    AppLocalizations.of(context)!.selectADay,
+                  ),
                   isDense: true,
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
@@ -50,13 +54,7 @@ class _SchedulePageState extends State<SchedulePage> {
                       ),
                     )
                     .toList(),
-                onChanged: (value) {
-                  scheduleCubit.onDayChange(value!);
-                  // setState(() {
-                  //   selectedValue = value.toString();
-                  //   print(value);
-                  // });
-                },
+                onChanged: (value) => scheduleCubit.onDayChange(value!),
               ),
               const SizedBox(height: 8),
               Expanded(
@@ -79,23 +77,6 @@ class _SchedulePageState extends State<SchedulePage> {
                                 state.scheduleList?[index].scheduleTitle ?? '',
                                 style: TextStyle(fontSize: 16),
                               ),
-                              // children: [
-                              //   state.scheduleList![index].scheduleDescription!
-                              //           .isEmpty
-                              //        Container()
-                              //       : Container(
-                              //           decoration: BoxDecoration(
-                              //             borderRadius:
-                              //                 BorderRadius.circular(8),
-                              //             border: Border.all(
-                              //                 color: AppColors.primary),
-                              //           ),
-                              //           child: ListTile(
-                              //             title: Text('dfadf'),
-                              //             subtitle: Text('dfa'),
-                              //           ),
-                              //         )
-                              // ],
                             ),
                           )
                         ],

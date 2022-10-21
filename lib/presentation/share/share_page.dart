@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mailto/mailto.dart';
-import 'package:ok_radio_flutter/util/assets.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '/core/di/inject.dart';
+import '/presentation/widgets/socal_network_functions.dart';
+import '/util/assets.dart';
 
 import '../../core/navigation/navigation.dart';
 import '../../util/colors.dart';
@@ -13,57 +13,56 @@ import '../widgets/popup_widget.dart';
 class SharePage extends StatelessWidget {
   SharePage({super.key});
 
-  Future<void> _sendEmail() async {
-    final mailtoLink = Mailto(
-      to: ['info@okradio.kg'],
-      subject: "from",
-    );
+  final socialNetwork = get.get<SocialNetworkFucntion>();
 
-    await launchUrl(Uri.parse('$mailtoLink'));
-  }
+  // Future<void> _sendEmail() async {
+  //   final mailtoLink = Mailto(
+  //     to: [Strings.emailTo],
+  //     subject: "from",
+  //   );
 
-  Future<void> _openFacebook() async {
-    final Uri _urr =
-        Uri.parse('https://www.facebook.com/profile.php?id=100063701852938');
+  //   await launchUrl(Uri.parse('$mailtoLink'));
+  // }
 
-    if (await launchUrl(_urr)) {
-      await canLaunchUrl(_urr);
-    } else {
-      throw 'There was a problem to open the url: $_urr';
-    }
-  }
+  // Future<void> _openFacebook() async {
+  //   final Uri _urr = Uri.parse(Strings.facebook);
 
-  Future<void> _openTiktok() async {
-    final Uri _urr = Uri.parse('https://www.tiktok.com/@okradio.kg');
+  //   if (await launchUrl(_urr)) {
+  //     await canLaunchUrl(_urr);
+  //   } else {
+  //     throw 'There was a problem to open the url: $_urr';
+  //   }
+  // }
 
-    if (await launchUrl(_urr)) {
-      await canLaunchUrl(_urr);
-    } else {
-      throw 'There was a problem to open the url: $_urr';
-    }
-  }
+  // Future<void> _openTiktok() async {
+  //   final Uri _urr = Uri.parse(Strings.tiktok);
 
-  Future<void> _openYoutube() async {
-    final Uri _urr =
-        Uri.parse('https://www.youtube.com/channel/UCRCRqpeFq_1Cu3O5xiyuizw');
+  //   if (await launchUrl(_urr)) {
+  //     await canLaunchUrl(_urr);
+  //   } else {
+  //     throw 'There was a problem to open the url: $_urr';
+  //   }
+  // }
 
-    if (await launchUrl(_urr)) {
-      await canLaunchUrl(_urr);
-    } else {
-      throw 'There was a problem to open the url: $_urr';
-    }
-  }
+  // Future<void> _openYoutube() async {
+  //   final Uri _urr = Uri.parse(Strings.youtube);
 
-  Future<void> _openWhatsapp() async {
-    final Uri _urr = Uri.parse(
-        'whatsapp://send?phone=996705531664&text&type=phone_number&app_absent=0');
+  //   if (await launchUrl(_urr)) {
+  //     await canLaunchUrl(_urr);
+  //   } else {
+  //     throw 'There was a problem to open the url: $_urr';
+  //   }
+  // }
 
-    if (await launchUrl(_urr)) {
-      await canLaunchUrl(_urr);
-    } else {
-      throw 'There was a problem to open the url: $_urr';
-    }
-  }
+  // Future<void> _openWhatsapp() async {
+  //   final Uri _urr = Uri.parse(Strings.whatsapp);
+
+  //   if (await launchUrl(_urr)) {
+  //     await canLaunchUrl(_urr);
+  //   } else {
+  //     throw 'There was a problem to open the url: $_urr';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -132,35 +131,35 @@ class SharePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
-                  onTap: () async => _sendEmail(),
+                  onTap: () async => socialNetwork.sendEmail(),
                   child: SvgPicture.asset(
                     Assets.email,
                     height: 50,
                   ),
                 ),
                 InkWell(
-                  onTap: () => _openFacebook(),
+                  onTap: () => socialNetwork.openFacebook(),
                   child: SvgPicture.asset(
                     Assets.facebook,
                     height: 50,
                   ),
                 ),
                 InkWell(
-                  onTap: () => _openTiktok(),
+                  onTap: () => socialNetwork.openTiktok(),
                   child: SvgPicture.asset(
                     Assets.tiktok,
                     height: 50,
                   ),
                 ),
                 InkWell(
-                  onTap: () => _openYoutube(),
+                  onTap: () => socialNetwork.openYoutube(),
                   child: SvgPicture.asset(
                     Assets.youtube,
                     height: 50,
                   ),
                 ),
                 InkWell(
-                  onTap: () => _openWhatsapp(),
+                  onTap: () => socialNetwork.openWhatsapp(),
                   child: SvgPicture.asset(
                     Assets.whatsapp,
                     height: 50,

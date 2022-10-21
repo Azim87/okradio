@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -25,7 +26,7 @@ class OkRadioApp extends StatelessWidget {
           return MaterialApp.router(
             locale: state.locale ? Locale('ru') : Locale('ky'),
             routeInformationParser: navigation.defaultRouteParser(),
-            routerDelegate: navigation.delegate(),
+            routerDelegate: AutoRouterDelegate(navigation),
             debugShowCheckedModeBanner: false,
             title: 'Ok radio',
             theme: ThemeData.light(),

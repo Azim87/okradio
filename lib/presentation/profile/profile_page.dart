@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ok_radio_flutter/core/di/inject.dart';
+import 'package:ok_radio_flutter/presentation/widgets/socal_network_functions.dart';
 
 import '../../util/assets.dart';
 import '../../util/colors.dart';
@@ -15,6 +17,8 @@ class SocialMedia {
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
+
+  final socialNetwork = get.get<SocialNetworkFucntion>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +56,36 @@ class ProfilePage extends StatelessWidget {
       ),
     ];
 
+    void getSocailUrlByIndex(int index) {
+      switch (index) {
+        case 0:
+          {
+            socialNetwork.sendEmail();
+          }
+          break;
+        case 1:
+          {
+            socialNetwork.openFacebook();
+          }
+
+          break;
+        case 2:
+          {
+            socialNetwork.openWhatsapp();
+          }
+          break;
+        case 3:
+          {
+            socialNetwork.openYoutube();
+          }
+          break;
+        default:
+          {
+            socialNetwork.openTiktok();
+          }
+      }
+    }
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SafeArea(
@@ -83,7 +117,7 @@ class ProfilePage extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 16),
                   shrinkWrap: true,
                   itemBuilder: (context, index) => ListTile(
-                    onTap: () {},
+                    onTap: () => getSocailUrlByIndex(index),
                     leading: SvgPicture.asset(_socialList[index].icon!),
                     title: Text(
                       _socialList[index].label!,

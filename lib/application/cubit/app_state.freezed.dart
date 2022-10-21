@@ -119,7 +119,7 @@ abstract class _AppState implements AppState {
   const factory _AppState({final bool locale}) = _$_AppState;
 
   @override
-  bool get locale => throw _privateConstructorUsedError;
+  bool get locale;
   @override
   @JsonKey(ignore: true)
   _$$_AppStateCopyWith<_$_AppState> get copyWith =>

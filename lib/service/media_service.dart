@@ -13,9 +13,7 @@ class AudioPlayerHandler extends BaseAudioHandler {
 
   static final _item = MediaItem(
     id: Strings.radio_id,
-    album: "Science Friday",
-    title: "A Salute To Head-Scratching Science",
-    artist: "Science Friday and WNYC Studios",
+    title: "Биринчи үй-бүлөлүк радио - Первое семейно радио",
     artUri: Uri.parse(Strings.art_uri),
   );
 

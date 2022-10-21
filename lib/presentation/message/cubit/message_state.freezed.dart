@@ -156,11 +156,11 @@ abstract class _MessageState implements MessageState {
       final String? message}) = _$_MessageState;
 
   @override
-  String? get name => throw _privateConstructorUsedError;
+  String? get name;
   @override
-  String? get emailOrPhone => throw _privateConstructorUsedError;
+  String? get emailOrPhone;
   @override
-  String? get message => throw _privateConstructorUsedError;
+  String? get message;
   @override
   @JsonKey(ignore: true)
   _$$_MessageStateCopyWith<_$_MessageState> get copyWith =>
