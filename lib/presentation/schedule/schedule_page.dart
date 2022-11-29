@@ -26,6 +26,7 @@ class _SchedulePageState extends State<SchedulePage> {
           child: Column(
             children: [
               DropdownButtonFormField2<DayType>(
+                value: DayType.Monday,
                 alignment: AlignmentDirectional.center,
                 buttonHeight: 30,
                 itemHeight: 30,

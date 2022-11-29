@@ -60,18 +60,18 @@ class _PopUpWidgetState extends State<PopUpWidget> {
                   //     onPressed: () {},
                   //   ),
                   // ),
-                  PopupMenuItem(
-                    child: TextButton(
-                      child: Text(
-                        AppLocalizations.of(context)!.share,
-                        style: Styles.popUpTextStyle,
-                      ),
-                      onPressed: () {
-                        Navigation.router.pop();
-                        Navigation.router.push(ShareRoute());
-                      },
-                    ),
-                  ),
+                  // PopupMenuItem(
+                  //   child: TextButton(
+                  //     child: Text(
+                  //       AppLocalizations.of(context)!.share,
+                  //       style: Styles.popUpTextStyle,
+                  //     ),
+                  //     onPressed: () {
+                  //       Navigation.router.pop();
+                  //       Navigation.router.push(ShareRoute());
+                  //     },
+                  //   ),
+                  // ),
                   PopupMenuItem(
                     child: TextButton(
                       child: Row(

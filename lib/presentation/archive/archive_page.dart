@@ -39,43 +39,43 @@ class ArchivePage extends StatelessWidget {
                 ),
               ),
               child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    width: 1,
-                    color: Colors.black12,
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      state.programs[index].title!,
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.black12,
                     ),
-                    const SizedBox(height: 10),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: state.programs[index].image ?? '',
-                          width: 100,
-                          placeholder: (context, url) =>
-                              Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: state.programs[index].image ?? '',
+                        width: 100,
+                        placeholder: (context, url) =>
+                            Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              state.programs[index].title!,
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(state.programs[index].content!),
+                          ],
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(child: Text(state.programs[index].content!))
-                      ],
-                    )
-                  ],
-                ),
-              ),
+                      )
+                    ],
+                  )),
             ),
           ),
         );

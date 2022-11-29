@@ -42,21 +42,23 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
       case 0:
         return Strings.ashar;
       case 1:
-        return Strings.ashar;
+        return Strings.denDobryi;
       case 2:
-        return Strings.ashar;
+        return Strings.kutmanTan;
       case 3:
-        return Strings.ashar;
+        return Strings.syrmaek;
       case 4:
-        return Strings.ashar;
+        return Strings.nazar;
       case 5:
-        return Strings.ashar;
+        return Strings.apalarMektebi;
       case 6:
-        return Strings.ashar;
-      case 6:
-        return Strings.ashar;
-      case 6:
-        return Strings.ashar;
+        return Strings.barZaman;
+      case 7:
+        return Strings.immunitet;
+      case 8:
+        return Strings.sekretSchastya;
+      case 9:
+        return Strings.silaPeremen;
 
       default:
         return Strings.ashar;
@@ -126,50 +128,56 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
             if (state.archive.isEmpty)
               return Center(child: CircularProgressIndicator());
 
+            if (state.archive.length == 1) {
+              return Center(child: Text(AppLocalizations.of(context)!.nodata));
+            }
+
             return ListView.builder(
               shrinkWrap: true,
               itemCount: state.archive.length,
               itemBuilder: (context, index) => InkWell(
-                onDoubleTap: () => _showAlertDialog(context),
+                onTap: () => _showAlertDialog(context),
                 child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      width: 1,
-                      color: Colors.black12,
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 8,
                     ),
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        state.archive[index].title!,
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.black12,
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: state.archive[index].image!,
-                            width: 100,
-                            placeholder: (context, url) =>
-                                Center(child: CircularProgressIndicator()),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                              child: Text(state.archive[index].content ?? ''))
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: state.archive[index].image!,
+                          width: 100,
+                          placeholder: (context, url) =>
+                              Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                            child: Column(
+                          children: [
+                            Text(
+                              state.archive[index].title!,
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(state.archive[index].content ?? ''),
+                          ],
+                        ))
+                      ],
+                    )),
               ),
             );
           },

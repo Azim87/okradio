@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:ok_radio_flutter/repository/archive_repsoitory.dart';
 
@@ -16,6 +17,8 @@ class ArchiveDetailsCubit extends Cubit<ArchiveDetailsState> {
     }
 
     final archvie = await repository.getArchives(id: id);
+
+    debugPrint('----------------------------------:$archvie');
 
     emit(state.copyWith.call(archive: archvie));
   }

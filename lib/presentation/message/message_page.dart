@@ -52,7 +52,26 @@ class _MessagePageState extends State<MessagePage> {
     return BlocProvider(
       create: (context) => _messageCubit,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: _keyboardVisible
+            ? const SizedBox()
+            : CircleAvatar(
+                backgroundColor: AppColors.secondary,
+                radius: 30,
+                child: SizedBox(
+                  height: 65,
+                  width: 65,
+                  child: FloatingActionButton(
+                    elevation: 0,
+                    backgroundColor: AppColors.secondary,
+                    onPressed: () async => _messageCubit.makeCall(),
+                    child: SvgPicture.asset(
+                      Assets.call,
+                      height: 25,
+                    ),
+                  ),
+                ),
+              ),
         body: Stack(
           children: [
             Container(
@@ -90,71 +109,52 @@ class _MessagePageState extends State<MessagePage> {
                           children: [
                             SizedBox(height: height.height * 0.05),
                             Center(child: SvgPicture.asset(Assets.app_logo)),
-                            const SizedBox(height: 45),
+                            const SizedBox(height: 15),
                           ],
                         ),
-                  Expanded(
-                    child: BlocBuilder<MessageCubit, MessageState>(
-                      builder: (context, state) => ListView(
-                        shrinkWrap: true,
-                        children: [
-                          CustomInputWidget(
-                            hintText: AppLocalizations.of(context)!.name,
-                            keyboardType: TextInputType.name,
-                            onChanged: (name) => _messageCubit.onName(name),
-                          ),
-                          CustomInputWidget(
-                            hintText:
-                                AppLocalizations.of(context)!.emailOrPhone,
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: (emailOrPhone) =>
-                                _messageCubit.onEmailOrPhone(emailOrPhone),
-                          ),
-                          CustomInputWidget(
-                            hintText: AppLocalizations.of(context)!.message,
-                            keyboardType: TextInputType.text,
-                            onChanged: (message) =>
-                                _messageCubit.onMessage(message),
-                          ),
-                          const SizedBox(height: 22),
-                          CustomButton(
-                            buttonText: AppLocalizations.of(context)!.send,
-                            color: !_messageCubit.name ||
-                                    !_messageCubit.emailOrPhone
-                                ? AppColors.disabledColor
-                                : AppColors.primary,
-                            onTap: !_messageCubit.name ||
-                                    !_messageCubit.emailOrPhone
-                                ? null
-                                : () {
-                                    if (state.name!.isNotEmpty ||
-                                        state.emailOrPhone!.isNotEmpty) {
-                                      _messageCubit.sendEmail();
-                                    }
-                                  },
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  CircleAvatar(
-                    backgroundColor: AppColors.secondary,
-                    radius: 40,
-                    child: SizedBox(
-                      height: 65,
-                      width: 65,
-                      child: FloatingActionButton(
-                        elevation: 0,
-                        backgroundColor: AppColors.secondary,
-                        onPressed: () async => _messageCubit.makeCall(),
-                        child: SvgPicture.asset(
-                          Assets.call,
-                          height: 25,
+                  BlocBuilder<MessageCubit, MessageState>(
+                    builder: (context, state) => ListView(
+                      shrinkWrap: true,
+                      children: [
+                        CustomInputWidget(
+                          hintText: AppLocalizations.of(context)!.name,
+                          keyboardType: TextInputType.name,
+                          onChanged: (name) => _messageCubit.onName(name),
                         ),
-                      ),
+                        CustomInputWidget(
+                          hintText: AppLocalizations.of(context)!.emailOrPhone,
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: (emailOrPhone) =>
+                              _messageCubit.onEmailOrPhone(emailOrPhone),
+                        ),
+                        CustomInputWidget(
+                          hintText: AppLocalizations.of(context)!.message,
+                          keyboardType: TextInputType.text,
+                          onChanged: (message) =>
+                              _messageCubit.onMessage(message),
+                        ),
+                        const SizedBox(height: 8),
+                        CustomButton(
+                          buttonText: AppLocalizations.of(context)!.send,
+                          color:
+                              !_messageCubit.name || !_messageCubit.emailOrPhone
+                                  ? AppColors.disabledColor
+                                  : AppColors.primary,
+                          onTap:
+                              !_messageCubit.name || !_messageCubit.emailOrPhone
+                                  ? null
+                                  : () {
+                                      if (state.name!.isNotEmpty ||
+                                          state.emailOrPhone!.isNotEmpty) {
+                                        _messageCubit.sendEmail();
+                                      }
+                                    },
+                        )
+                      ],
                     ),
                   ),
-                  SizedBox(height: height.height * 0.05),
+
+                  // SizedBox(height: height.height * 0.06),
                 ],
               ),
             ),

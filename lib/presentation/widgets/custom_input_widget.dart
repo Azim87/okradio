@@ -18,7 +18,7 @@ class CustomInputWidget extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         margin: const EdgeInsets.symmetric(
           horizontal: 16,
-          vertical: 8,
+          vertical: 6,
         ),
         padding: const EdgeInsets.only(left: 16),
         decoration: BoxDecoration(
