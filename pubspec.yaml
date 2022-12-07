@@ -2,7 +2,7 @@ name: ok_radio_flutter
 description: Ok radio mobile app
 
 publish_to: 'none'
-version: 1.0.2+3
+version: 1.0.3+4
 
 environment:
   sdk: ">=2.17.3 <3.0.0"
