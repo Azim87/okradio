@@ -1,16 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ok_radio_flutter/core/di/inject.dart';
 import 'package:ok_radio_flutter/core/navigation/router.gr.dart';
-import 'package:ok_radio_flutter/core/newtork/network_checker.dart';
+
 import 'package:ok_radio_flutter/util/colors.dart';
 import '../../core/navigation/navigation.dart';
 import 'cubit/archive_cubit.dart';
 import 'cubit/archive_state.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArchivePage extends StatelessWidget {
   ArchivePage({Key? key}) : super(key: key);
@@ -36,11 +33,11 @@ class ArchivePage extends StatelessWidget {
             itemCount: state.programs.length,
             itemBuilder: (context, index) => InkWell(
               onTap: () async {
-                if (!await NetworkChecker().isConnected) {
-                  Fluttertoast.showToast(
-                      msg: AppLocalizations.of(context)!.noConnection);
-                  return;
-                }
+                // if (!await NetworkChecker().isConnected) {
+                //   Fluttertoast.showToast(
+                //       msg: AppLocalizations.of(context)!.noConnection);
+                //   return;
+                // }
                 Navigation.router.push(
                   ArchiveDetailsRoute(
                     id: state.programs[index].id!,

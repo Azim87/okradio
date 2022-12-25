@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:share_plus/share_plus.dart';
 import '/core/di/inject.dart';
 import '/presentation/widgets/socal_network_functions.dart';
 import '/util/assets.dart';
@@ -9,6 +9,8 @@ import '../../core/navigation/navigation.dart';
 import '../../util/colors.dart';
 import '../../util/styles.dart';
 import '../widgets/popup_widget.dart';
+
+import 'dart:io' show Platform;
 
 class SharePage extends StatelessWidget {
   SharePage({super.key});
@@ -114,7 +116,7 @@ class SharePage extends StatelessWidget {
         ),
         child: ListTile(
           title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 25),
+            padding: const EdgeInsets.symmetric(vertical: 5),
             child: Text(
               AppLocalizations.of(context)!.shareWith,
               style: TextStyle(
@@ -125,49 +127,68 @@ class SharePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(bottom: 25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () async => socialNetwork.sendEmail(),
-                  child: SvgPicture.asset(
-                    Assets.email,
-                    height: 50,
-                  ),
+
+          subtitle: InkWell(
+            onTap: () {
+              if (Platform.isAndroid)
+                Share.share(
+                    'https://play.google.com/store/apps/details?id=kgz.okradio&hl=ru&gl=US');
+              if (Platform.isIOS) Share.share('');
+            },
+            child: Container(
+              height: 100,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: Platform.isAndroid
+                      ? AssetImage(Assets.playmarket)
+                      : AssetImage(Assets.appstore),
                 ),
-                InkWell(
-                  onTap: () => socialNetwork.openFacebook(),
-                  child: SvgPicture.asset(
-                    Assets.facebook,
-                    height: 50,
-                  ),
-                ),
-                InkWell(
-                  onTap: () => socialNetwork.openTiktok(),
-                  child: SvgPicture.asset(
-                    Assets.tiktok,
-                    height: 50,
-                  ),
-                ),
-                InkWell(
-                  onTap: () => socialNetwork.openYoutube(),
-                  child: SvgPicture.asset(
-                    Assets.youtube,
-                    height: 50,
-                  ),
-                ),
-                InkWell(
-                  onTap: () => socialNetwork.openWhatsapp(),
-                  child: SvgPicture.asset(
-                    Assets.whatsapp,
-                    height: 50,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
+          // subtitle: Padding(
+          //   padding: const EdgeInsets.only(bottom: 25),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     children: [
+          //       InkWell(
+          //         onTap: () async => socialNetwork.sendEmail(),
+          //         child: SvgPicture.asset(
+          //           Assets.email,
+          //           height: 50,
+          //         ),
+          //       ),
+          //       InkWell(
+          //         onTap: () => socialNetwork.openFacebook(),
+          //         child: SvgPicture.asset(
+          //           Assets.facebook,
+          //           height: 50,
+          //         ),
+          //       ),
+          //       InkWell(
+          //         onTap: () => socialNetwork.openTiktok(),
+          //         child: SvgPicture.asset(
+          //           Assets.tiktok,
+          //           height: 50,
+          //         ),
+          //       ),
+          //       InkWell(
+          //         onTap: () => socialNetwork.openYoutube(),
+          //         child: SvgPicture.asset(
+          //           Assets.youtube,
+          //           height: 50,
+          //         ),
+          //       ),
+          //       InkWell(
+          //         onTap: () => socialNetwork.openWhatsapp(),
+          //         child: SvgPicture.asset(
+          //           Assets.whatsapp,
+          //           height: 50,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ),
       );
 }

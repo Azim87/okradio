@@ -21,15 +21,14 @@ class OkRadioApp extends StatelessWidget {
       create: (context) => appCubit..getLocaleFromCache(),
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
-          debugPrint('local state from app: ${state.locale}');
-
           return MaterialApp.router(
             locale: state.locale ? Locale('ru') : Locale('ky'),
             routeInformationParser: navigation.defaultRouteParser(),
             routerDelegate: AutoRouterDelegate(navigation),
             debugShowCheckedModeBanner: false,
             title: 'Ok radio',
-            theme: ThemeData.light(),
+            theme:
+                ThemeData(visualDensity: VisualDensity.adaptivePlatformDensity),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

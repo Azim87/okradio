@@ -21,6 +21,11 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
   @override
   void initState() {
     super.initState();
+    _removeSplash();
+  }
+
+  Future<void> _removeSplash() async {
+    await Future.delayed(const Duration(seconds: 1));
     FlutterNativeSplash.remove();
   }
 

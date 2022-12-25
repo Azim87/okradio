@@ -1,6 +1,6 @@
 class Assets {
   static const app_logo = "assets/icons/app_logo.svg";
-  static const background = "assets/images/ic_app_background.png";
+  static const background = "assets/images/background_screen.png";
   static const settings = "assets/icons/ic_settings.svg";
 
   static const play = 'assets/icons/ic_s_play.svg';
@@ -37,4 +37,7 @@ class Assets {
   static const image8 = 'assets/images/image_8.png';
   static const image9 = 'assets/images/image_9.png';
   static const image10 = 'assets/images/image_10.png';
+
+  static const appstore = 'assets/images/appstore.png';
+  static const playmarket = 'assets/images/playmarket.png';
 }

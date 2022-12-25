@@ -22,7 +22,7 @@ class PlayRadioPage extends StatefulWidget {
 class _PlayRadioPageState extends State<PlayRadioPage>
     with TickerProviderStateMixin {
   late AnimationController? _controller = AnimationController(vsync: this);
-  late final NetworkChecker network = NetworkChecker();
+  final NetworkChecker network = NetworkChecker();
 
   @override
   void dispose() {
@@ -57,6 +57,7 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                     child: PopUpWidget(),
                   ),
                 ),
+                SizedBox(height: height.height * 0.05),
                 Center(
                   child: SvgPicture.asset(Assets.app_logo),
                 ),
@@ -105,19 +106,18 @@ class _PlayRadioPageState extends State<PlayRadioPage>
     return (await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Are you sure?'),
-            content: Text('Do you want to exit an App'),
+            title: Text(AppLocalizations.of(context)!.closeApp),
             actions: [
               TextButton(
                 onPressed: () => Navigation.router.pop(false),
-                child: Text('Жок'),
+                child: Text(AppLocalizations.of(context)!.no),
               ),
               TextButton(
                 onPressed: () {
                   Navigation.router.pop(true);
                   audioHandler.stop();
                 },
-                child: Text('Ооба'),
+                child: Text(AppLocalizations.of(context)!.yes),
               ),
             ],
           ),
@@ -136,12 +136,11 @@ class _PlayRadioPageState extends State<PlayRadioPage>
             backgroundColor: AppColors.secondary,
             onPressed: () async {
               if (await network.isConnected) {
-                print('true');
                 playing ? audioHandler.pause() : audioHandler.play();
                 playing ? _controller?.stop() : _controller?.repeat();
               } else {
-                print('false');
-                Fluttertoast.showToast(msg: 'no internet connection');
+                Fluttertoast.showToast(
+                    msg: AppLocalizations.of(context)!.noConnection);
               }
             },
             child: SvgPicture.asset(
