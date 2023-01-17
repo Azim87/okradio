@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ok_radio_flutter/core/newtork/network_checker.dart';
@@ -71,13 +71,9 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                   'assets/anim/music.json',
                   controller: _controller,
                   onLoaded: (composition) {
-                    if (!mounted) return;
-
-                    setState(() {
-                      _controller
-                        ?..duration = composition.duration
-                        ..stop();
-                    });
+                    _controller
+                      ?..duration = composition.duration
+                      ..stop();
                   },
                 ),
                 SizedBox(height: height.height * 0.1),
@@ -138,10 +134,7 @@ class _PlayRadioPageState extends State<PlayRadioPage>
               if (await network.isConnected) {
                 playing ? audioHandler.pause() : audioHandler.play();
                 playing ? _controller?.stop() : _controller?.repeat();
-              } else {
-                Fluttertoast.showToast(
-                    msg: AppLocalizations.of(context)!.noConnection);
-              }
+              } else {}
             },
             child: SvgPicture.asset(
               playing ? Assets.pause : Assets.play,

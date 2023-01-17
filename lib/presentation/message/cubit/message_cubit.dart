@@ -28,8 +28,8 @@ class MessageCubit extends Cubit<MessageState> {
     emit(state.copyWith(message: message));
   }
 
-  Future<void> makeCall() async {
-    final Uri _phoneUri = Uri(scheme: "tel", path: '0312 91 19 19');
+  Future<void> makeCall(String phone) async {
+    final Uri _phoneUri = Uri(scheme: "tel", path: phone);
 
     try {
       if (await canLaunchUrl(_phoneUri)) await launchUrl(_phoneUri);

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_state.dart';
 
@@ -17,13 +16,13 @@ class AppCubit extends Cubit<AppState> {
   }
 
   setLocaleToCache(bool value) async {
-    final _pref = await SharedPreferences.getInstance();
-    _pref.setBool(VALUE_KEY, value);
+    //final _pref = await SharedPreferences.getInstance();
+    //.setBool(VALUE_KEY, value);
   }
 
   Future<void> getLocaleFromCache() async {
-    final _pref = await SharedPreferences.getInstance();
-    final locale = _pref.getBool(VALUE_KEY) ?? false;
-    emit(state.copyWith(locale: locale));
+    // final _pref = await SharedPreferences.getInstance();
+    // final locale = _pref.getBool(VALUE_KEY) ?? false;
+    // emit(state.copyWith(locale: locale));
   }
 }

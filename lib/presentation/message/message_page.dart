@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ok_radio_flutter/core/navigation/navigation.dart';
 
 import '../../core/di/inject.dart';
 import '../../util/assets.dart';
@@ -64,7 +65,7 @@ class _MessagePageState extends State<MessagePage> {
                   child: FloatingActionButton(
                     elevation: 0,
                     backgroundColor: AppColors.secondary,
-                    onPressed: () async => _messageCubit.makeCall(),
+                    onPressed: () async => showPhoneSelectDialog(),
                     child: SvgPicture.asset(
                       Assets.call,
                       height: 25,
@@ -153,8 +154,6 @@ class _MessagePageState extends State<MessagePage> {
                       ],
                     ),
                   ),
-
-                  // SizedBox(height: height.height * 0.06),
                 ],
               ),
             ),
@@ -162,5 +161,38 @@ class _MessagePageState extends State<MessagePage> {
         ),
       ),
     );
+  }
+
+  Future<void> showPhoneSelectDialog() async {
+    final phoneList = ['0 312 91 19 19', '0 559 91 14 44', '0 707 91 14 44'];
+
+    await showModalBottomSheet(
+        isDismissible: true,
+        context: context,
+        builder: (context) {
+          return SizedBox(
+            height: 200,
+            child: ListView.builder(
+              itemCount: phoneList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    _messageCubit
+                        .makeCall(phoneList[index])
+                        .then((_) => Navigation.router.pop(true));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      phoneList[index],
+                      style: TextStyle(fontSize: 22),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        });
   }
 }
