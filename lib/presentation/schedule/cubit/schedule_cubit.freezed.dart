@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'schedule_cubit.dart';
 
@@ -27,29 +27,32 @@ mixin _$ScheduleState {
 abstract class $ScheduleStateCopyWith<$Res> {
   factory $ScheduleStateCopyWith(
           ScheduleState value, $Res Function(ScheduleState) then) =
-      _$ScheduleStateCopyWithImpl<$Res>;
+      _$ScheduleStateCopyWithImpl<$Res, ScheduleState>;
+  @useResult
   $Res call({List<Schedule>? scheduleList});
 }
 
 /// @nodoc
-class _$ScheduleStateCopyWithImpl<$Res>
+class _$ScheduleStateCopyWithImpl<$Res, $Val extends ScheduleState>
     implements $ScheduleStateCopyWith<$Res> {
   _$ScheduleStateCopyWithImpl(this._value, this._then);
 
-  final ScheduleState _value;
   // ignore: unused_field
-  final $Res Function(ScheduleState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? scheduleList = freezed,
   }) {
     return _then(_value.copyWith(
-      scheduleList: scheduleList == freezed
+      scheduleList: freezed == scheduleList
           ? _value.scheduleList
           : scheduleList // ignore: cast_nullable_to_non_nullable
               as List<Schedule>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -60,26 +63,25 @@ abstract class _$$_ScheduleStateCopyWith<$Res>
           _$_ScheduleState value, $Res Function(_$_ScheduleState) then) =
       __$$_ScheduleStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<Schedule>? scheduleList});
 }
 
 /// @nodoc
 class __$$_ScheduleStateCopyWithImpl<$Res>
-    extends _$ScheduleStateCopyWithImpl<$Res>
+    extends _$ScheduleStateCopyWithImpl<$Res, _$_ScheduleState>
     implements _$$_ScheduleStateCopyWith<$Res> {
   __$$_ScheduleStateCopyWithImpl(
       _$_ScheduleState _value, $Res Function(_$_ScheduleState) _then)
-      : super(_value, (v) => _then(v as _$_ScheduleState));
+      : super(_value, _then);
 
-  @override
-  _$_ScheduleState get _value => super._value as _$_ScheduleState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? scheduleList = freezed,
   }) {
     return _then(_$_ScheduleState(
-      scheduleList: scheduleList == freezed
+      scheduleList: freezed == scheduleList
           ? _value._scheduleList
           : scheduleList // ignore: cast_nullable_to_non_nullable
               as List<Schedule>?,
@@ -98,6 +100,7 @@ class _$_ScheduleState implements _ScheduleState {
   List<Schedule>? get scheduleList {
     final value = _scheduleList;
     if (value == null) return null;
+    if (_scheduleList is EqualUnmodifiableListView) return _scheduleList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -122,6 +125,7 @@ class _$_ScheduleState implements _ScheduleState {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ScheduleStateCopyWith<_$_ScheduleState> get copyWith =>
       __$$_ScheduleStateCopyWithImpl<_$_ScheduleState>(this, _$identity);
 }

@@ -6,4 +6,4 @@ import 'inject.config.dart';
 final get = GetIt.instance;
 
 @InjectableInit()
-Future<void> inject() async => $initGetIt(get);
+Future<void> inject() async => get.init();

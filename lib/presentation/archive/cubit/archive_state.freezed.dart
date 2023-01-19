@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'archive_state.dart';
 
@@ -29,38 +29,42 @@ mixin _$ArchiveState {
 abstract class $ArchiveStateCopyWith<$Res> {
   factory $ArchiveStateCopyWith(
           ArchiveState value, $Res Function(ArchiveState) then) =
-      _$ArchiveStateCopyWithImpl<$Res>;
+      _$ArchiveStateCopyWithImpl<$Res, ArchiveState>;
+  @useResult
   $Res call({bool loading, List<Programs> programs, int id});
 }
 
 /// @nodoc
-class _$ArchiveStateCopyWithImpl<$Res> implements $ArchiveStateCopyWith<$Res> {
+class _$ArchiveStateCopyWithImpl<$Res, $Val extends ArchiveState>
+    implements $ArchiveStateCopyWith<$Res> {
   _$ArchiveStateCopyWithImpl(this._value, this._then);
 
-  final ArchiveState _value;
   // ignore: unused_field
-  final $Res Function(ArchiveState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? loading = freezed,
-    Object? programs = freezed,
-    Object? id = freezed,
+    Object? loading = null,
+    Object? programs = null,
+    Object? id = null,
   }) {
     return _then(_value.copyWith(
-      loading: loading == freezed
+      loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
-      programs: programs == freezed
+      programs: null == programs
           ? _value.programs
           : programs // ignore: cast_nullable_to_non_nullable
               as List<Programs>,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -71,36 +75,35 @@ abstract class _$$_ArchiveStateCopyWith<$Res>
           _$_ArchiveState value, $Res Function(_$_ArchiveState) then) =
       __$$_ArchiveStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({bool loading, List<Programs> programs, int id});
 }
 
 /// @nodoc
 class __$$_ArchiveStateCopyWithImpl<$Res>
-    extends _$ArchiveStateCopyWithImpl<$Res>
+    extends _$ArchiveStateCopyWithImpl<$Res, _$_ArchiveState>
     implements _$$_ArchiveStateCopyWith<$Res> {
   __$$_ArchiveStateCopyWithImpl(
       _$_ArchiveState _value, $Res Function(_$_ArchiveState) _then)
-      : super(_value, (v) => _then(v as _$_ArchiveState));
+      : super(_value, _then);
 
-  @override
-  _$_ArchiveState get _value => super._value as _$_ArchiveState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? loading = freezed,
-    Object? programs = freezed,
-    Object? id = freezed,
+    Object? loading = null,
+    Object? programs = null,
+    Object? id = null,
   }) {
     return _then(_$_ArchiveState(
-      loading: loading == freezed
+      loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
               as bool,
-      programs: programs == freezed
+      programs: null == programs
           ? _value._programs
           : programs // ignore: cast_nullable_to_non_nullable
               as List<Programs>,
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
@@ -124,6 +127,7 @@ class _$_ArchiveState implements _ArchiveState {
   @override
   @JsonKey()
   List<Programs> get programs {
+    if (_programs is EqualUnmodifiableListView) return _programs;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_programs);
   }
@@ -142,20 +146,18 @@ class _$_ArchiveState implements _ArchiveState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ArchiveState &&
-            const DeepCollectionEquality().equals(other.loading, loading) &&
+            (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._programs, _programs) &&
-            const DeepCollectionEquality().equals(other.id, id));
+            (identical(other.id, id) || other.id == id));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(loading),
-      const DeepCollectionEquality().hash(_programs),
-      const DeepCollectionEquality().hash(id));
+      runtimeType, loading, const DeepCollectionEquality().hash(_programs), id);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ArchiveStateCopyWith<_$_ArchiveState> get copyWith =>
       __$$_ArchiveStateCopyWithImpl<_$_ArchiveState>(this, _$identity);
 }

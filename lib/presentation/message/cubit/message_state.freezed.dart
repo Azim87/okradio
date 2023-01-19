@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'message_state.dart';
 
@@ -29,18 +29,22 @@ mixin _$MessageState {
 abstract class $MessageStateCopyWith<$Res> {
   factory $MessageStateCopyWith(
           MessageState value, $Res Function(MessageState) then) =
-      _$MessageStateCopyWithImpl<$Res>;
+      _$MessageStateCopyWithImpl<$Res, MessageState>;
+  @useResult
   $Res call({String? name, String? emailOrPhone, String? message});
 }
 
 /// @nodoc
-class _$MessageStateCopyWithImpl<$Res> implements $MessageStateCopyWith<$Res> {
+class _$MessageStateCopyWithImpl<$Res, $Val extends MessageState>
+    implements $MessageStateCopyWith<$Res> {
   _$MessageStateCopyWithImpl(this._value, this._then);
 
-  final MessageState _value;
   // ignore: unused_field
-  final $Res Function(MessageState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? name = freezed,
@@ -48,19 +52,19 @@ class _$MessageStateCopyWithImpl<$Res> implements $MessageStateCopyWith<$Res> {
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      emailOrPhone: emailOrPhone == freezed
+      emailOrPhone: freezed == emailOrPhone
           ? _value.emailOrPhone
           : emailOrPhone // ignore: cast_nullable_to_non_nullable
               as String?,
-      message: message == freezed
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -71,20 +75,19 @@ abstract class _$$_MessageStateCopyWith<$Res>
           _$_MessageState value, $Res Function(_$_MessageState) then) =
       __$$_MessageStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String? name, String? emailOrPhone, String? message});
 }
 
 /// @nodoc
 class __$$_MessageStateCopyWithImpl<$Res>
-    extends _$MessageStateCopyWithImpl<$Res>
+    extends _$MessageStateCopyWithImpl<$Res, _$_MessageState>
     implements _$$_MessageStateCopyWith<$Res> {
   __$$_MessageStateCopyWithImpl(
       _$_MessageState _value, $Res Function(_$_MessageState) _then)
-      : super(_value, (v) => _then(v as _$_MessageState));
+      : super(_value, _then);
 
-  @override
-  _$_MessageState get _value => super._value as _$_MessageState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? name = freezed,
@@ -92,15 +95,15 @@ class __$$_MessageStateCopyWithImpl<$Res>
     Object? message = freezed,
   }) {
     return _then(_$_MessageState(
-      name: name == freezed
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      emailOrPhone: emailOrPhone == freezed
+      emailOrPhone: freezed == emailOrPhone
           ? _value.emailOrPhone
           : emailOrPhone // ignore: cast_nullable_to_non_nullable
               as String?,
-      message: message == freezed
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -130,21 +133,18 @@ class _$_MessageState implements _MessageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MessageState &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.emailOrPhone, emailOrPhone) &&
-            const DeepCollectionEquality().equals(other.message, message));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.emailOrPhone, emailOrPhone) ||
+                other.emailOrPhone == emailOrPhone) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(emailOrPhone),
-      const DeepCollectionEquality().hash(message));
+  int get hashCode => Object.hash(runtimeType, name, emailOrPhone, message);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_MessageStateCopyWith<_$_MessageState> get copyWith =>
       __$$_MessageStateCopyWithImpl<_$_MessageState>(this, _$identity);
 }

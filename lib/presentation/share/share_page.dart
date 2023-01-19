@@ -133,7 +133,8 @@ class SharePage extends StatelessWidget {
               if (Platform.isAndroid)
                 Share.share(
                     'https://play.google.com/store/apps/details?id=kgz.okradio&hl=ru&gl=US');
-              if (Platform.isIOS) Share.share('');
+              if (Platform.isIOS)
+                Share.share('https://apps.apple.com/app/radio-ok/id1658516141');
             },
             child: Container(
               height: 100,

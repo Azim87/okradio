@@ -1,94 +1,77 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ok_radio_flutter/core/di/inject.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ok_radio_flutter/core/navigation/navigation.dart';
 import 'package:ok_radio_flutter/core/navigation/router.gr.dart';
 
 import 'package:ok_radio_flutter/util/colors.dart';
-import '../../core/navigation/navigation.dart';
-import 'cubit/archive_cubit.dart';
-import 'cubit/archive_state.dart';
+import '../../core/newtork/network_checker.dart';
+import '../../model/programs.dart';
 
 class ArchivePage extends StatelessWidget {
   ArchivePage({Key? key}) : super(key: key);
 
-  final archiveCubit = get<ArchiveCubit>();
+  final programList = getProgramData();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ArchiveCubit, ArchiveState>(
-      bloc: archiveCubit..getPrograms(),
-      builder: (context, state) {
-        final loading = state.loading;
+    return Flexible(
+      child: ListView.builder(
+        itemCount: programList.length,
+        itemBuilder: (context, index) => Material(
+          child: InkWell(
+            onTap: () async {
+              if (!await NetworkChecker().isConnected) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(AppLocalizations.of(context)!.noConnection)));
 
-        if (loading) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        return Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: state.programs.length,
-            itemBuilder: (context, index) => InkWell(
-              onTap: () async {
-                // if (!await NetworkChecker().isConnected) {
-                //   Fluttertoast.showToast(
-                //       msg: AppLocalizations.of(context)!.noConnection);
-                //   return;
-                // }
-                Navigation.router.push(
-                  ArchiveDetailsRoute(
-                    id: state.programs[index].id!,
-                    title: state.programs[index].title!,
-                    index: index,
-                  ),
-                );
-              },
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    width: 1,
-                    color: Colors.black12,
-                  ),
+                return;
+              }
+              Navigation.router.push(ArchiveDetailsRoute(
+                id: programList[index].id!,
+                title: programList[index].title!,
+                index: index,
+              ));
+            },
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  width: 1,
+                  color: Colors.black12,
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: state.programs[index].image ?? '',
-                      width: 100,
-                      placeholder: (context, url) =>
-                          Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            state.programs[index].title!,
-                            style: TextStyle(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 130,
+                    width: 130,
+                    child: Image.asset(programList[index].image ?? ''),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          programList[index].title!,
+                          style: const TextStyle(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.w600,
                           ),
-                          const SizedBox(height: 5),
-                          Text(state.programs[index].content!),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(programList[index].content!),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

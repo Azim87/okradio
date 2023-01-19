@@ -132,6 +132,10 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
               return Center(child: Text(AppLocalizations.of(context)!.nodata));
             }
 
+            if (state.archive.length == 0) {
+              return Center(child: Text(AppLocalizations.of(context)!.nodata));
+            }
+
             return ListView.builder(
               shrinkWrap: true,
               itemCount: state.archive.length,

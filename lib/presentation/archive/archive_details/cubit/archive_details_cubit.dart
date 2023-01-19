@@ -17,6 +17,10 @@ class ArchiveDetailsCubit extends Cubit<ArchiveDetailsState> {
 
     final archvie = await repository.getArchives(id: id);
 
+    if (archvie.length == 0) {
+      emit(state.copyWith.call(archive: []));
+    }
+
     emit(state.copyWith.call(archive: archvie));
   }
 }

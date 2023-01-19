@@ -1,21 +1,10 @@
-import 'package:hive/hive.dart';
-
-part 'archive.g.dart';
-
-@HiveType(typeId: 0)
-class Archive extends HiveObject {
-  @HiveField(0)
-  String? title;
-  @HiveField(1)
-  String? content;
-  @HiveField(2)
-  int? dateTime;
-  @HiveField(3)
-  String? image;
-  @HiveField(4)
-  int? id;
-  @HiveField(5)
-  int? audioId;
+class Archive {
+  final String? title;
+  final String? content;
+  final int? dateTime;
+  final String? image;
+  final int? id;
+  final int? audioId;
 
   Archive({
     this.title,

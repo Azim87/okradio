@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
 import 'package:ok_radio_flutter/core/newtork/network_checker.dart';
-import 'package:ok_radio_flutter/data/local_data.dart';
 import 'package:ok_radio_flutter/model/archive.dart';
 import 'package:ok_radio_flutter/model/programs.dart';
 
@@ -12,30 +11,24 @@ import '../core/newtork/api.dart';
 class ArchiveRepository {
   ArchiveRepository(
     this.api,
-    this.localData,
     this.network,
   );
 
   final Api api;
-  final LocalData localData;
+
   final NetworkChecker network;
 
   Future<List<Programs>> getPrograms() async {
-    if (await network.isConnected) {
-      final response = await api.getPrograms();
+    final response = await api.getPrograms();
 
-      var utf8Body = utf8.decode(response.bodyBytes);
+    var utf8Body = utf8.decode(response.bodyBytes);
 
-      final List<Programs> programList = json
-          .decode(utf8Body)
-          .map<Programs>((value) => Programs.fromJson(value))
-          .toList();
+    final List<Programs> programList = json
+        .decode(utf8Body)
+        .map<Programs>((value) => Programs.fromJson(value))
+        .toList();
 
-      localData.addPrograms(programList);
-
-      return programList;
-    }
-    return localData.getPrograms();
+    return programList;
   }
 
   Future<List<Archive>> getArchives({required int id}) async {
