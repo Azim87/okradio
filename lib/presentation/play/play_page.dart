@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -110,7 +112,11 @@ class _PlayRadioPageState extends State<PlayRadioPage>
               ),
               TextButton(
                 onPressed: () {
-                  context.pop();
+                  if (Platform.isAndroid) {
+                    SystemNavigator.pop(animated: true);
+                  } else if (Platform.isIOS) {
+                    exit(0);
+                  }
                   audioHandler.stop();
                 },
                 child: Text(AppLocalizations.of(context)!.yes),
