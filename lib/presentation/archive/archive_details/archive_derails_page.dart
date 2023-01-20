@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ok_radio_flutter/core/navigation/navigation.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:ok_radio_flutter/presentation/archive/archive_details/cubit/archive_details_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ok_radio_flutter/util/constants.dart';
@@ -19,7 +20,7 @@ class ArchiveDetailsPage extends StatefulWidget {
     required this.index,
   });
 
-  final int id;
+  final String id;
   final String title;
   final int index;
 
@@ -34,7 +35,7 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
   void initState() {
     super.initState();
     archiveDetailsCubit = get.get<ArchiveDetailsCubit>();
-    archiveDetailsCubit..fetchProgramArchives(widget.id);
+    archiveDetailsCubit..fetchProgramArchives(int.parse(widget.id));
   }
 
   String getPrograms() {
@@ -78,21 +79,42 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
   }
 
   Future<void> _showAlertDialog(BuildContext context) async {
+    final MediaQueryData data = MediaQuery.of(context);
     final noButton = TextButton(
-      child: Text(AppLocalizations.of(context)!.no),
-      onPressed: () => Navigation.router.pop<bool>(true),
+      child: MediaQuery(
+          data: data.copyWith(
+              boldText: false,
+              textScaleFactor:
+                  data.textScaleFactor > 1.0 ? 1.0 : data.textScaleFactor),
+          child: Text(AppLocalizations.of(context)!.no)),
+      onPressed: () => context.pop(),
     );
     final okButton = TextButton(
-      child: Text(AppLocalizations.of(context)!.yes),
+      child: MediaQuery(
+          data: data.copyWith(
+              boldText: false,
+              textScaleFactor:
+                  data.textScaleFactor > 1.0 ? 1.0 : data.textScaleFactor),
+          child: Text(AppLocalizations.of(context)!.yes)),
       onPressed: () {
-        Navigation.router.pop<bool>(true);
+        context.pop();
         openPage();
       },
     );
 
     final alert = AlertDialog(
-      title: Text(widget.title),
-      content: Text(AppLocalizations.of(context)!.redirect),
+      title: MediaQuery(
+          data: data.copyWith(
+              boldText: false,
+              textScaleFactor:
+                  data.textScaleFactor > 1.0 ? 1.0 : data.textScaleFactor),
+          child: Text(widget.title)),
+      content: MediaQuery(
+          data: data.copyWith(
+              boldText: false,
+              textScaleFactor:
+                  data.textScaleFactor > 1.0 ? 1.0 : data.textScaleFactor),
+          child: Text(AppLocalizations.of(context)!.redirect)),
       actions: [
         noButton,
         okButton,
@@ -106,7 +128,7 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
         backgroundColor: AppColors.white,
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () => Navigation.router.pop<bool>(true),
+            onPressed: () => context.pop(),
             icon: Icon(
               Icons.keyboard_arrow_left,
               color: Colors.black,
@@ -126,7 +148,7 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
             print('archive length: ${state.archive.length}');
 
             if (state.archive.isEmpty)
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Text(AppLocalizations.of(context)!.nodata));
 
             if (state.archive.length == 1) {
               return Center(child: Text(AppLocalizations.of(context)!.nodata));

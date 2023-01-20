@@ -27,16 +27,16 @@ class Assets {
   static const kgFlag = 'assets/images/img_kg_flag.svg';
   static const rusFlag = 'assets/images/img_rus_flag.svg';
 
-  static const image1 = 'assets/images/image_1.png';
-  static const image2 = 'assets/images/image_2.png';
-  static const image3 = 'assets/images/image_3.png';
-  static const image4 = 'assets/images/image_4.png';
-  static const image5 = 'assets/images/image_5.png';
-  static const image6 = 'assets/images/image_6.png';
-  static const image7 = 'assets/images/image_7.png';
-  static const image8 = 'assets/images/image_8.png';
-  static const image9 = 'assets/images/image_9.png';
-  static const image10 = 'assets/images/image_10.png';
+  static const dd = 'assets/images/image_1.png';
+  static const ashar = 'assets/images/image_2.png';
+  static const kutman = 'assets/images/image_3.png';
+  static const maek = 'assets/images/image_4.png';
+  static const apalar = 'assets/images/image_5.png';
+  static const nazar = 'assets/images/image_6.png';
+  static const barzaman = 'assets/images/image_7.png';
+  static const immunitet = 'assets/images/image_8.png';
+  static const sekret = 'assets/images/image_9.png';
+  static const silaperemen = 'assets/images/image_10.png';
 
   static const appstore = 'assets/images/appstore.png';
   static const playmarket = 'assets/images/playmarket.png';

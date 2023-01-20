@@ -1,10 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ok_radio_flutter/application/cubit/app_cubit.dart';
 import 'package:ok_radio_flutter/core/di/inject.dart';
-import 'package:ok_radio_flutter/core/navigation/navigation.dart';
+import 'package:ok_radio_flutter/core/navigation/app_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'cubit/app_state.dart';
@@ -12,7 +11,6 @@ import 'cubit/app_state.dart';
 class OkRadioApp extends StatelessWidget {
   OkRadioApp();
 
-  final navigation = Navigation.router;
   final appCubit = get<AppCubit>();
 
   @override
@@ -23,8 +21,7 @@ class OkRadioApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp.router(
             locale: state.locale ? Locale('ru') : Locale('ky'),
-            routeInformationParser: navigation.defaultRouteParser(),
-            routerDelegate: AutoRouterDelegate(navigation),
+            routerConfig: router,
             debugShowCheckedModeBanner: false,
             title: 'Ok radio',
             theme:

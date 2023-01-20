@@ -36,8 +36,8 @@ class ArchiveRepository {
 
     var utf8Body = utf8.decode(response.bodyBytes);
 
-    if (utf8Body.isEmpty) {
-      return [];
+    if (utf8Body.contains('Error') || utf8Body.isEmpty) {
+      return [Archive()];
     } else {
       final List<Archive> archiveList = json
           .decode(utf8Body)

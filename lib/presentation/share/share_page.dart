@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import '/core/di/inject.dart';
 import '/presentation/widgets/socal_network_functions.dart';
 import '/util/assets.dart';
 
-import '../../core/navigation/navigation.dart';
 import '../../util/colors.dart';
 import '../../util/styles.dart';
 import '../widgets/popup_widget.dart';
@@ -82,7 +82,7 @@ class SharePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                      onPressed: () => Navigation.router.pop(),
+                      onPressed: () => context.pop(),
                       icon: const Icon(Icons.arrow_back_ios_new_outlined)),
                   Text(
                     AppLocalizations.of(context)!.share,

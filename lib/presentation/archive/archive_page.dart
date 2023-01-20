@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ok_radio_flutter/core/navigation/navigation.dart';
-import 'package:ok_radio_flutter/core/navigation/router.gr.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:ok_radio_flutter/util/colors.dart';
 import '../../core/newtork/network_checker.dart';
@@ -26,11 +25,14 @@ class ArchivePage extends StatelessWidget {
 
                 return;
               }
-              Navigation.router.push(ArchiveDetailsRoute(
-                id: programList[index].id!,
-                title: programList[index].title!,
-                index: index,
-              ));
+              context.goNamed(
+                'archive_detail',
+                params: {
+                  'id': programList[index].id.toString(),
+                  'title': programList[index].title!,
+                  'index': index.toString()
+                },
+              );
             },
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 8),

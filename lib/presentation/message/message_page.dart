@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ok_radio_flutter/core/navigation/navigation.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/di/inject.dart';
 import '../../util/assets.dart';
@@ -175,18 +175,26 @@ class _MessagePageState extends State<MessagePage> {
             child: ListView.builder(
               itemCount: phoneList.length,
               itemBuilder: (BuildContext context, int index) {
+                final MediaQueryData data = MediaQuery.of(context);
                 return GestureDetector(
                   onTap: () {
                     _messageCubit
                         .makeCall(phoneList[index])
-                        .then((_) => Navigation.router.pop(true));
+                        .then((_) => context.pop());
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      phoneList[index],
-                      style: TextStyle(fontSize: 22),
-                      textAlign: TextAlign.center,
+                    child: MediaQuery(
+                      data: data.copyWith(
+                          boldText: false,
+                          textScaleFactor: data.textScaleFactor > 1.0
+                              ? 1.0
+                              : data.textScaleFactor),
+                      child: Text(
+                        phoneList[index],
+                        style: TextStyle(fontSize: 22),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 );

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ok_radio_flutter/core/newtork/network_checker.dart';
 
-import '../../core/navigation/navigation.dart';
 import '../../main.dart';
 import '../../util/assets.dart';
 import '../../util/colors.dart';
@@ -105,12 +105,12 @@ class _PlayRadioPageState extends State<PlayRadioPage>
             title: Text(AppLocalizations.of(context)!.closeApp),
             actions: [
               TextButton(
-                onPressed: () => Navigation.router.pop(false),
+                onPressed: () => context.pop(),
                 child: Text(AppLocalizations.of(context)!.no),
               ),
               TextButton(
                 onPressed: () {
-                  Navigation.router.pop(true);
+                  context.pop();
                   audioHandler.stop();
                 },
                 child: Text(AppLocalizations.of(context)!.yes),

@@ -13,10 +13,10 @@ late AudioHandler audioHandler;
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-    SystemUiOverlay.bottom,
-    SystemUiOverlay.top,
-  ]);
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+  //   SystemUiOverlay.bottom,
+  //   SystemUiOverlay.top,
+  // ]);
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../core/navigation/navigation.dart';
 import '../../util/colors.dart';
 import '../../util/styles.dart';
 
@@ -35,7 +35,7 @@ class AboutUsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   IconButton(
-                      onPressed: () => Navigation.router.pop(),
+                      onPressed: () => context.pop(),
                       icon: Icon(Icons.arrow_back_ios_new_outlined)),
                   Text(
                     AppLocalizations.of(context)!.aboutUs,

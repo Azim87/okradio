@@ -12,13 +12,10 @@ class Api {
   }
 
   Future<http.Response> getProgramArchives(int ids) async {
-    print('$ids');
-    print(
-        'https://okradio.kg/mobile/api/v2/get-broadcasts.php?section_id=$ids');
-
     final response = await http.get(
       Uri.parse(
           'https://okradio.kg/mobile/api/v2/get-broadcasts.php?section_id=$ids'),
+      headers: {"Content-Type": "application/json"},
     );
 
     return response;

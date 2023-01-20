@@ -50,66 +50,59 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData data = MediaQuery.of(context);
-    return MediaQuery(
-      data: data.copyWith(
-          boldText: false,
-          textScaleFactor:
-              data.textScaleFactor > 1.0 ? 1.0 : data.textScaleFactor),
-      child: WillPopScope(
-        onWillPop: _onWillPopCallback,
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(Assets.uPlay),
-                activeIcon: SvgPicture.asset(Assets.play),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(Assets.uEnvelop),
-                activeIcon: SvgPicture.asset(Assets.envelop),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(Assets.uBrowser),
-                activeIcon: SvgPicture.asset(Assets.browser),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(Assets.uList),
-                activeIcon: SvgPicture.asset(Assets.list),
-                label: '',
-              ),
-            ],
-            onTap: (index) {
-              _pageViewController.animateToPage(
-                index,
-                duration: Duration(milliseconds: 400),
-                curve: Curves.easeIn,
-              );
-            },
-            iconSize: 25,
-            elevation: 5,
-          ),
-          body: PageView(
-            controller: _pageViewController,
-            children: [
-              PlayRadioPage(),
-              MessagePage(),
-              ProgramsPage(),
-              ProfilePage(),
-            ],
-            onPageChanged: (index) {
-              setState(() => _currentIndex = index);
-              WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
-            },
-          ),
+    return WillPopScope(
+      onWillPop: _onWillPopCallback,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.uPlay),
+              activeIcon: SvgPicture.asset(Assets.play),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.uEnvelop),
+              activeIcon: SvgPicture.asset(Assets.envelop),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.uBrowser),
+              activeIcon: SvgPicture.asset(Assets.browser),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.uList),
+              activeIcon: SvgPicture.asset(Assets.list),
+              label: '',
+            ),
+          ],
+          onTap: (index) {
+            _pageViewController.animateToPage(
+              index,
+              duration: Duration(milliseconds: 400),
+              curve: Curves.easeIn,
+            );
+          },
+          iconSize: 25,
+          elevation: 5,
+        ),
+        body: PageView(
+          controller: _pageViewController,
+          children: [
+            PlayRadioPage(),
+            MessagePage(),
+            ProgramsPage(),
+            ProfilePage(),
+          ],
+          onPageChanged: (index) {
+            setState(() => _currentIndex = index);
+            WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+          },
         ),
       ),
     );
