@@ -147,7 +147,8 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
           builder: (context, state) {
             print('archive length: ${state.archive.length}');
 
-            if (state.archive.isEmpty)
+            // ignore: unnecessary_null_comparison
+            if (state.archive == null)
               return Center(child: Text(AppLocalizations.of(context)!.nodata));
 
             if (state.archive.length == 1) {
@@ -155,7 +156,7 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
             }
 
             if (state.archive.isEmpty) {
-              return Center(child: Text(AppLocalizations.of(context)!.nodata));
+              return const Center(child: CircularProgressIndicator.adaptive());
             }
 
             return ListView.builder(
