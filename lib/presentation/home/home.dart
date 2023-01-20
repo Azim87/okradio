@@ -49,7 +49,14 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) => WillPopScope(
+  Widget build(BuildContext context) {
+    final MediaQueryData data = MediaQuery.of(context);
+    return MediaQuery(
+      data: data.copyWith(
+          boldText: false,
+          textScaleFactor:
+              data.textScaleFactor > 1.0 ? 1.0 : data.textScaleFactor),
+      child: WillPopScope(
         onWillPop: _onWillPopCallback,
         child: Scaffold(
           backgroundColor: Colors.white,
@@ -104,5 +111,7 @@ class _OkRadioHomePageState extends State<OkRadioHomePage> {
             },
           ),
         ),
-      );
+      ),
+    );
+  }
 }

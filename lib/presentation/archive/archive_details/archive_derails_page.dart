@@ -132,7 +132,7 @@ class _ArchiveDetailsPageState extends State<ArchiveDetailsPage> {
               return Center(child: Text(AppLocalizations.of(context)!.nodata));
             }
 
-            if (state.archive.length == 0) {
+            if (state.archive.isEmpty) {
               return Center(child: Text(AppLocalizations.of(context)!.nodata));
             }
 
