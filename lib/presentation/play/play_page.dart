@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -23,13 +25,28 @@ class PlayRadioPage extends StatefulWidget {
 
 class _PlayRadioPageState extends State<PlayRadioPage>
     with TickerProviderStateMixin {
-  late AnimationController? _controller = AnimationController(vsync: this);
+  late AnimationController _controller = AnimationController(vsync: this);
   final NetworkChecker network = NetworkChecker();
 
   @override
   void dispose() {
     super.dispose();
-    _controller?.dispose();
+    _controller.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnection();
+  }
+
+  void checkConnection() {
+    InternetConnectionChecker().onStatusChange.listen((connectionStatus) {
+      if (connectionStatus == InternetConnectionStatus.disconnected) {
+        audioHandler.stop();
+        _controller.reset();
+      }
+    });
   }
 
   @override
@@ -74,19 +91,28 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                   controller: _controller,
                   onLoaded: (composition) {
                     _controller
-                      ?..duration = composition.duration
+                      ..duration = composition.duration
                       ..stop();
                   },
                 ),
                 SizedBox(height: height.height * 0.1),
-                StreamBuilder<bool>(
-                  stream: audioHandler.playbackState
-                      .map((event) => event.playing)
-                      .distinct(),
+                StreamBuilder<PlaybackState>(
+                  stream: audioHandler.playbackState,
                   builder: (context, snapshot) {
-                    final playing = snapshot.data ?? false;
+                    final playing = snapshot.data?.playing ?? false;
 
-                    playing ? _controller?.repeat() : _controller?.stop();
+                    playing ? _controller.repeat() : _controller.stop();
+
+                    final processingState = snapshot.data?.processingState ??
+                        AudioProcessingState.idle;
+
+                    debugPrint('------------------${processingState.name}');
+                    if (processingState == AudioProcessingState.loading) {
+                      _controller.reset();
+                      return const Text('Подключениe к потоку...');
+                    }
+
+                    playing ? _controller.repeat() : _controller.stop();
 
                     return _buildPlayButton(playing);
                   },
@@ -114,10 +140,11 @@ class _PlayRadioPageState extends State<PlayRadioPage>
                 onPressed: () {
                   if (Platform.isAndroid) {
                     SystemNavigator.pop(animated: true);
+                    audioHandler.stop();
                   } else if (Platform.isIOS) {
+                    audioHandler.stop();
                     exit(0);
                   }
-                  audioHandler.stop();
                 },
                 child: Text(AppLocalizations.of(context)!.yes),
               ),
@@ -139,12 +166,15 @@ class _PlayRadioPageState extends State<PlayRadioPage>
             onPressed: () async {
               if (await network.isConnected) {
                 playing ? audioHandler.pause() : audioHandler.play();
-                playing ? _controller?.stop() : _controller?.repeat();
-              } else {}
+                playing ? _controller.stop() : _controller.repeat();
+              } else {
+                _controller.stop();
+                audioHandler.stop();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(AppLocalizations.of(context)!.noConnection)));
+              }
             },
-            child: SvgPicture.asset(
-              playing ? Assets.pause : Assets.play,
-            ),
+            child: SvgPicture.asset(playing ? Assets.pause : Assets.play),
           ),
         ),
       );

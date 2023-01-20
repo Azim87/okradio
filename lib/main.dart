@@ -17,9 +17,6 @@ Future<void> main() async {
   //   SystemUiOverlay.bottom,
   //   SystemUiOverlay.top,
   // ]);
-
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
   audioHandler = await AudioService.init(
     builder: () => AudioPlayerHandler(),
     config: const AudioServiceConfig(
@@ -29,6 +26,8 @@ Future<void> main() async {
       androidStopForegroundOnPause: true,
     ),
   );
+
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
